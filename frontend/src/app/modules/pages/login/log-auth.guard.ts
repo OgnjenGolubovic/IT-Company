@@ -25,9 +25,9 @@ export class AuthGuard implements CanActivate {
   }
   getRole(role: number) : string{
     if(role==1)return 'software-engineer';
-    if(role==2)return 'adiminstrator';
-    if(role==3)return 'human-resources';
-    if(role==4)return 'project-manager';
+    if(role==2)return 'human-resources';
+    if(role==3)return 'project-manager';
+    if(role==4)return 'administrator';
     
     return '';
   }

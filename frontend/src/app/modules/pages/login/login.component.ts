@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         if(data){
           if(data.role == 1)this.m_Router.navigate(['/software-engineer']);   
-          if(data.role == 2)this.m_Router.navigate(['/administrator']); 
-          if(data.role == 3)this.m_Router.navigate(['/human-resources']); 
-          if(data.role == 4)this.m_Router.navigate(['/project-manager']);               
+          if(data.role == 2)this.m_Router.navigate(['/human-resources']); 
+          if(data.role == 3)this.m_Router.navigate(['/project-manager']);
+          if(data.role == 4)this.m_Router.navigate(['/administrator']);           
         }
       });
   }

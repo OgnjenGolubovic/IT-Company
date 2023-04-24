@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.company.config.TokenUtils;
+import com.company.dto.UserDataDTO;
+import com.company.model.User;
+import com.company.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
@@ -31,11 +34,37 @@ public class UserController {
 
     @Autowired
     private TokenUtils tokenUtils;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private HumanResourcesService humanResourcesService;
+    @Autowired
+    private ProjectManagerService projectManagerService;
+    @Autowired
+    private AdministratorService administratorService;
+    @Autowired
+    private SoftwareEngineerService softwareEngineerService;
 
     @GetMapping(value = "/data")
-    public ResponseEntity<?> getUserData(HttpServletRequest request) {
+    public ResponseEntity<UserDataDTO> getUserData(HttpServletRequest request) {
 
         String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
-        return new ResponseEntity<>(username, HttpStatus.OK);
+        int id = humanResourcesService.findByUsername(username);
+        if(id != 0){
+            return new ResponseEntity<>(new UserDataDTO(id, 2),HttpStatus.OK);
+        }
+        id = softwareEngineerService.findByUsername(username);
+        if(id != 0){
+            return new ResponseEntity<>(new UserDataDTO(id, 1),HttpStatus.OK);
+        }
+        id = projectManagerService.findByUsername(username);
+        if(id != 0){
+            return new ResponseEntity<>(new UserDataDTO(id, 3),HttpStatus.OK);
+        }
+        id = administratorService.findByUsername(username);
+        if(id != 0){
+            return new ResponseEntity<>(new UserDataDTO(id, 4),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
