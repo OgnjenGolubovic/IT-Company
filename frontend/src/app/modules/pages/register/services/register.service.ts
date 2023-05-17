@@ -20,7 +20,7 @@ export class AuthService {
   
   register(registerRequest: any): Observable<RegisterResponse> {
     
-    return this.http.post<RegisterResponse>(this.apiHost + 'api/registration', registerRequest, {headers: this.headers}).pipe(
+    return this.http.post<RegisterResponse>(this.apiHost + 'auth/registration', registerRequest, {headers: this.headers}).pipe(
       tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
         duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
       }))

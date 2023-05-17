@@ -13,3 +13,8 @@ export interface RegisterRequest {
     status: number;
     message: string;
   }
+
+  export interface CompanyRole {
+    value: string;
+    viewValue: string;
+  }

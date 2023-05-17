@@ -2,6 +2,7 @@ package com.company.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.company.dto.RegisteredUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,4 +67,22 @@ public class AuthenticationController {
 		// Vrati token kao odgovor na uspesnu autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
 	}
+
+
+	@PostMapping("/register")
+	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
+
+		if (existUser != null) {
+			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
+		}
+
+		Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
+		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
+		userService.RegisterUser(registeredUserDTO, address);
+		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }
