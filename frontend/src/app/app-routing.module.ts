@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from "./modules/pages/login/log-auth.guard";
+import { AntiAuthGuard } from "./modules/pages/login/log-anti-auth.guard";
 import { LoginComponent } from "./modules/pages/login/login.component";
 
 
@@ -26,7 +27,7 @@ const routes: Routes = [
     canActivate : [AuthGuard]
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent, canActivate : [AntiAuthGuard] }
 ];
 
 @NgModule({
