@@ -2,6 +2,8 @@ package com.company.service;
 
 import java.util.List;
 
+import com.company.dto.RegisteredUserDTO;
+//import com.company.mappers.RegisteredUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,15 +33,16 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	/*@Override
-	public User save(UserRequest userRequest) {
+	public User RegisterUser(RegisteredUserDTO userRequest) {
 		User u = new User();
-		u.setUsername(userRequest.getUsername());
+		//u = new RegisteredUserMapper(userRequest);
+
+		//u.setUsername(userRequest.getUsername());
 		
 		// pre nego sto postavimo lozinku u atribut hesiramo je kako bi se u bazi nalazila hesirana lozinka
 		// treba voditi racuna da se koristi isi password encoder bean koji je postavljen u AUthenticationManager-u kako bi koristili isti algoritam
-		u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-		
+		//u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		/*
 		u.setFirstName(userRequest.getFirstname());
 		u.setLastName(userRequest.getLastname());
 		u.setEnabled(true);
@@ -47,10 +50,10 @@ public class UserService {
 
 		// u primeru se registruju samo obicni korisnici i u skladu sa tim im se i dodeljuje samo rola USER
 		List<Role> roles = roleService.findByName("ROLE_USER");
-		u.setRoles(roles);
+		u.setRoles(roles);*/
 		
 		return this.userRepository.save(u);
-	}*/
+	}
 
 
 

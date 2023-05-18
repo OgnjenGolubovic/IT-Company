@@ -77,9 +77,9 @@ public class AuthenticationController {
 			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
 		}
 
-		Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
+		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
 		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
-		userService.RegisterUser(registeredUserDTO, address);
+		userService.RegisterUser(registeredUserDTO);
 		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
 
 		return new ResponseEntity<>(HttpStatus.CREATED);

@@ -2,6 +2,13 @@ export interface RegisterRequest {
     email: string;
     name: string;
     surname: string;
+    street: string;
+    streetNumber: number;
+    city: string;
+    state: string;
+    phone: string;
+    companyRole: string;
+    title: string;
     password: string;
     IsActivatedAcount: boolean;
   }

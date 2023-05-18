@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
-import com.company.model.enums.Gender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,9 +35,6 @@ public class User implements Serializable, UserDetails{
 	private String surname;
 	
 	@Column(nullable = true)
-	private Gender gender;
-	
-	@Column(nullable = true)
 	private Integer jmbg;
 	
 	@Column(nullable = true)
@@ -61,14 +57,13 @@ public class User implements Serializable, UserDetails{
 	}
 	
 	
-	public User(Integer id, String username, String password, String name, String surname, Gender gender, int jmbg, String phoneNumber) {
+	public User(Integer id, String username, String password, String name, String surname, int jmbg, String phoneNumber) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
-		this.gender = gender;
 		this.jmbg = jmbg;
 		this.phoneNumber = phoneNumber;
 	}
@@ -133,25 +128,13 @@ public class User implements Serializable, UserDetails{
 	public void setJmbg(int jmbg) {
 		this.jmbg = jmbg;
 	}
-	public Gender getGender() {
-		return gender;
-	}
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	
+
 	public void setRoles(List<Role> roles) {
 	    this.roles = roles;
 	}
 	    
 	public List<Role> getRoles() {
 	    return roles;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", surname="
-				+ surname + ", gender=" + gender + ", jmbg=" + jmbg + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 	@Override
