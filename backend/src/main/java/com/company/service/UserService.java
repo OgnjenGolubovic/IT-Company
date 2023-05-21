@@ -33,8 +33,9 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	public User RegisterUser(RegisteredUserDTO userRequest) {
-		User u = new User();
+	public User registerUser(RegisteredUserDTO userRequest) {
+		User u = new User(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
+				userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getNumber(), userRequest.getPhone(), userRequest.getCompanyRole());
 		//u = new RegisteredUserMapper(userRequest);
 
 		//u.setUsername(userRequest.getUsername());
@@ -56,5 +57,6 @@ public class UserService {
 	}
 
 
-
+    public void save(User user) {
+    }
 }

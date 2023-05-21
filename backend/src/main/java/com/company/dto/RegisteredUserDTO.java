@@ -12,12 +12,13 @@ public class RegisteredUserDTO {
     private String city;
     private String state;
     private String phone;
+    private String companyRole;
 
     public RegisteredUserDTO() {
         super();
     }
 
-    public RegisteredUserDTO(String email, String password, String name, String surname, String street, String number, String city, String state, String phone) {
+    public RegisteredUserDTO(String email, String password, String name, String surname, String street, String number, String city, String state, String phone, String companyRole) {
         super();
         this.email = email;
         this.password = password;
@@ -28,6 +29,7 @@ public class RegisteredUserDTO {
         this.city = city;
         this.state = state;
         this.phone = phone;
+        this.companyRole = companyRole;
     }
 
     public Long getId() {
@@ -108,5 +110,13 @@ public class RegisteredUserDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCompanyRole() {
+        return companyRole;
+    }
+
+    public void setCompanyRole(String companyRole) {
+        this.companyRole = companyRole;
     }
 }
