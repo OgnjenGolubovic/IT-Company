@@ -69,7 +69,7 @@ public class AuthenticationController {
 	}
 
 
-	@PostMapping("/register")
+	@PostMapping("/registration")
 	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
 		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
 
@@ -81,6 +81,8 @@ public class AuthenticationController {
 		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
 		userService.registerUser(registeredUserDTO);
 		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+
+		System.out.println(registeredUserDTO.getEmail());
 
 		emailSenderService.sendSimpleEmail(registeredUserDTO.getEmail(),
 				"Verifikacija naloga",
