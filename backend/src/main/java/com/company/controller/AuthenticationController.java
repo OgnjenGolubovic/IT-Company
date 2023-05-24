@@ -79,14 +79,20 @@ public class AuthenticationController {
 
 		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
 		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
+
 		userService.registerUser(registeredUserDTO);
 		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+		//System.out.println(registeredUserDTO.getEmail());
 
-		System.out.println(registeredUserDTO.getEmail());
+		userService.createRegisterRequest(registeredUserDTO);
 
-		emailSenderService.sendSimpleEmail(registeredUserDTO.getEmail(),
-				"Verifikacija naloga",
-				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: http://localhost:4200/email-verified/" + registeredUserDTO.getEmail());
+
+
+
+
+//		emailSenderService.sendSimpleEmail(registeredUserDTO.getEmail(),
+//				"Verifikacija naloga",
+//				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: http://localhost:4200/email-verified/" + registeredUserDTO.getEmail());
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

@@ -8,7 +8,7 @@ public class RegisteredUserDTO {
     private String name;
     private String surname;
     private String street;
-    private String number;
+    private String streetNumber;
     private String city;
     private String state;
     private String phone;
@@ -18,14 +18,14 @@ public class RegisteredUserDTO {
         super();
     }
 
-    public RegisteredUserDTO(String email, String password, String name, String surname, String street, String number, String city, String state, String phone, String companyRole) {
+    public RegisteredUserDTO(String email, String password, String name, String surname, String street, String streetNumber, String city, String state, String phone, String companyRole) {
         super();
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.street = street;
-        this.number = number;
+        this.streetNumber = streetNumber;
         this.city = city;
         this.state = state;
         this.phone = phone;
@@ -80,12 +80,12 @@ public class RegisteredUserDTO {
         this.street = street;
     }
 
-    public String getNumber() {
-        return number;
+    public String getStreetNumber() {
+        return streetNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public String getCity() {

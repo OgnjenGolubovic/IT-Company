@@ -3,14 +3,13 @@ export interface RegisterRequest {
     name: string;
     surname: string;
     street: string;
-    streetNumber: number;
+    streetNumber: string;
     city: string;
     state: string;
     phone: string;
     companyRole: string;
     title: string;
     password: string;
-    IsActivatedAcount: boolean;
   }
   
   /*

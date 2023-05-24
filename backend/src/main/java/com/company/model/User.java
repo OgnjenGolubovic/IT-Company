@@ -22,7 +22,8 @@ public class User implements Serializable, UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	//username je email
 	@Column(nullable = true)
     private String username;
 	
@@ -81,7 +82,7 @@ public class User implements Serializable, UserDetails{
 	}
 
 	public User(String email, String password, String name, String surname, String state,
-				String city, String street, String number, String phone, String companyRole) {
+				String city, String street, String number, String phone, CompanyRole companyRole) {
 		super();
 		this.username = email;
 		this.password = password;
@@ -92,14 +93,7 @@ public class User implements Serializable, UserDetails{
 		this.street = street;
 		this.streetNumber = number;
 		this.phoneNumber = phone;
-
-		if(companyRole.equals("humanResourceManager")){
-			this.companyRole = CompanyRole.HR;
-		} else if (companyRole.equals("softwareEngineer")) {
-			this.companyRole = CompanyRole.SOFTWARE_ENGINEER;
-		} else if (companyRole.equals("projectManager")) {
-			this.companyRole = CompanyRole.PROJECT_MANAGER;
-		}
+		this.companyRole = companyRole;
 	}
 
 	public int getId() {
