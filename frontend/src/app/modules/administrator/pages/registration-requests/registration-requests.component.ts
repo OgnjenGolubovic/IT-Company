@@ -11,20 +11,20 @@ export class RegistrationRequestsComponent implements OnInit {
 
   public requests: RegistrationRequest[] = [];
 
-  displayedColumns: string[] = ['name', 'surname', 'email', 'title'];
+  displayedColumns: string[] = ['name', 'surname', 'email', 'companyRole'];
   public dataSource = new MatTableDataSource(this.requests);
 
   constructor(private _registrationRequestsList: RegisteredUsersListService) { }
 
   ngOnInit(): void {
-    this.getRegistrationRequests;
+    this.getRegistrationRequests();
   }
 
   public getRegistrationRequests(){
     this._registrationRequestsList.getAllRequests().subscribe(res => {
       this.requests = res;
       this.dataSource = new MatTableDataSource(this.requests);
-    })
+    });
   }
 
 }

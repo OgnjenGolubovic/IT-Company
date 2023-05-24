@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "RegistrationRequests")
 @SuppressWarnings("serial")
-@DiscriminatorColumn(name="email", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name="request", discriminatorType = DiscriminatorType.STRING)
 public class RegistrationRequest implements Serializable {
 
     @Id

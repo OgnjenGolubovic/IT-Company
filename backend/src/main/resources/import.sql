@@ -13,3 +13,7 @@ INSERT INTO USER_ROLE (user_id, role_id) values (1, 1);
 INSERT INTO USER_ROLE (user_id, role_id) values (2, 2);
 INSERT INTO USER_ROLE (user_id, role_id) values (3, 3);
 INSERT INTO USER_ROLE (user_id, role_id) values (4, 4);
+
+insert into registration_requests (request, email, name, surname, company_role) values (1, 'proba1@gmail.com', 'Milos', 'Milosevic', 2)
+insert into registration_requests (request, email, name, surname, company_role) values (2, 'proba2@gmail.com', 'Marko', 'Markovic', 3)
+insert into registration_requests (request, email, name, surname, company_role) values (3, 'proba3@gmail.com', 'Nenad', 'Nenadovic', 1)

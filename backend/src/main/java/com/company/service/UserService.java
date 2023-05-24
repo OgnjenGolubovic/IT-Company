@@ -96,6 +96,14 @@ public class UserService {
 
 		RegistrationRequest registrationRequest = new RegistrationRequest(userRequest.getEmail(), userRequest.getName(), userRequest.getSurname(), cr);
 
+		System.out.println(registrationRequest);
+
+		System.out.println(registrationRequest.getId());
+		System.out.println(registrationRequest.getEmail());
+		System.out.println(registrationRequest.getName());
+		System.out.println(registrationRequest.getSurname());
+		System.out.println(registrationRequest.getCompanyRole());
+
 		this.registrationRequestRepository.save(registrationRequest);
 
 	}

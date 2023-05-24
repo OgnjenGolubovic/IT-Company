@@ -120,6 +120,8 @@ public class WebSecurityConfig {
 
 				.antMatchers(HttpMethod.POST, "/auth/login")
 
+				.antMatchers(HttpMethod.GET, "/api/admin/regRequestAll")
+
     			// Ovim smo dozvolili pristup statickim resursima aplikacije
     			.antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico",
     			"/**/*.html", "/**/*.css", "/**/*.js");

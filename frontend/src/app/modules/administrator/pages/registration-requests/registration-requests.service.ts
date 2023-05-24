@@ -7,7 +7,7 @@ export interface RegistrationRequest{
     name: string,
     surname: string,
     email: string,
-    title: string,
+    companyRole: string,
 }
 
 @Injectable({
@@ -20,7 +20,7 @@ export interface RegistrationRequest{
     constructor(private http: HttpClient) { }
   
     getAllRequests() : Observable<RegistrationRequest[]> {
-        return this.http.get<RegistrationRequest[]>(this.route + 'api/registration/requestAll', {headers: this.headers});
+        return this.http.get<RegistrationRequest[]>(this.route + 'api/admin/regRequestAll', {headers: this.headers});
     }
     
   }
