@@ -24,7 +24,7 @@ export interface RegistrationRequest{
     }
     
     approveRequest(request: RegistrationRequest) : Observable<any> {
-      return this.http.put<any>(this.route + 'admin/regRequestAprove', request, {headers: this.headers});
+      return this.http.put<any>(this.route + 'admin/regRequestApprove', request, {headers: this.headers});
     }
 
     cancelRequest(request: RegistrationRequest) : Observable<any> {

@@ -86,14 +86,6 @@ public class AuthenticationController {
 
 		userService.createRegisterRequest(registeredUserDTO);
 
-
-
-
-
-//		emailSenderService.sendSimpleEmail(registeredUserDTO.getEmail(),
-//				"Verifikacija naloga",
-//				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: http://localhost:4200/email-verified/" + registeredUserDTO.getEmail());
-
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

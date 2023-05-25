@@ -29,13 +29,13 @@ export class RegistrationRequestsComponent implements OnInit {
 
   public handleButtonApprove(element: RegistrationRequest){
     this._registrationRequestsList.approveRequest(element).subscribe((_res: any) => {
-      
+      window.location.reload();
     });
   }
 
   public handleButtonCancel(element: RegistrationRequest){
     this._registrationRequestsList.cancelRequest(element).subscribe((_res: any) => {
-
+      window.location.reload();
     });
   }
 

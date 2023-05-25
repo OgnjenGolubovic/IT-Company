@@ -1,5 +1,6 @@
 package com.company.model;
 
+import com.company.dto.enums.Status;
 import com.company.model.enums.CompanyRole;
 
 import javax.persistence.*;
@@ -8,7 +9,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "RegistrationRequests")
 @SuppressWarnings("serial")
-@DiscriminatorColumn(name="request", discriminatorType = DiscriminatorType.STRING)
 public class RegistrationRequest implements Serializable {
 
     @Id
@@ -27,16 +27,20 @@ public class RegistrationRequest implements Serializable {
     @Column(nullable = true)
     private CompanyRole companyRole;
 
+    @Column(nullable = true)
+    private Status status;
+
     public RegistrationRequest(){
         super();
     }
 
-    public RegistrationRequest(String email, String name, String surname, CompanyRole companyRole) {
+    public RegistrationRequest(String email, String name, String surname, CompanyRole companyRole, Status status) {
         super();
         this.email = email;
         this.name = name;
         this.surname = surname;
         this.companyRole = companyRole;
+        this.status = status;
     }
 
     public int getId() {
@@ -77,5 +81,13 @@ public class RegistrationRequest implements Serializable {
 
     public void setCompanyRole(CompanyRole companyRole) {
         this.companyRole = companyRole;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

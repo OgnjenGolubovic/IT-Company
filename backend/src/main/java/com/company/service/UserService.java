@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.company.dto.RegisteredUserDTO;
 //import com.company.mappers.RegisteredUserMapper;
+import com.company.dto.enums.Status;
 import com.company.model.RegistrationRequest;
 import com.company.model.enums.CompanyRole;
 import com.company.repository.RegistrationRequestRepository;
@@ -94,15 +95,7 @@ public class UserService {
 			cr = null;
 		}
 
-		RegistrationRequest registrationRequest = new RegistrationRequest(userRequest.getEmail(), userRequest.getName(), userRequest.getSurname(), cr);
-
-		System.out.println(registrationRequest);
-
-		System.out.println(registrationRequest.getId());
-		System.out.println(registrationRequest.getEmail());
-		System.out.println(registrationRequest.getName());
-		System.out.println(registrationRequest.getSurname());
-		System.out.println(registrationRequest.getCompanyRole());
+		RegistrationRequest registrationRequest = new RegistrationRequest(userRequest.getEmail(), userRequest.getName(), userRequest.getSurname(), cr, Status.PENDING);
 
 		this.registrationRequestRepository.save(registrationRequest);
 
