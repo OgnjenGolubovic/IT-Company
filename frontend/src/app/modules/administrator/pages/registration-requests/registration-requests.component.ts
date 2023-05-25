@@ -11,7 +11,7 @@ export class RegistrationRequestsComponent implements OnInit {
 
   public requests: RegistrationRequest[] = [];
 
-  displayedColumns: string[] = ['name', 'surname', 'email', 'companyRole'];
+  displayedColumns: string[] = ['name', 'surname', 'email', 'companyRole', 'buttonApprove', 'buttonCancel'];
   public dataSource = new MatTableDataSource(this.requests);
 
   constructor(private _registrationRequestsList: RegisteredUsersListService) { }
@@ -26,5 +26,18 @@ export class RegistrationRequestsComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.requests);
     });
   }
+
+  public handleButtonApprove(element: RegistrationRequest){
+    this._registrationRequestsList.approveRequest(element).subscribe((_res: any) => {
+      
+    });
+  }
+
+  public handleButtonCancel(element: RegistrationRequest){
+    this._registrationRequestsList.cancelRequest(element).subscribe((_res: any) => {
+
+    });
+  }
+
 
 }

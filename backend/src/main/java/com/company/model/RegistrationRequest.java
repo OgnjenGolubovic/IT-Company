@@ -27,6 +27,10 @@ public class RegistrationRequest implements Serializable {
     @Column(nullable = true)
     private CompanyRole companyRole;
 
+    public RegistrationRequest(){
+        super();
+    }
+
     public RegistrationRequest(String email, String name, String surname, CompanyRole companyRole) {
         super();
         this.email = email;

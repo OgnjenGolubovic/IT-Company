@@ -24,6 +24,19 @@
         <td mat-cell *matCellDef="let element"> {{element.companyRole}} </td>
       </ng-container>
     
+      <ng-container matColumnDef="buttonApprove">
+        <th mat-header-cell *matHeaderCellDef> Approve </th>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="handleButtonApprove(element)">Approve</button>
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="buttonCancel">
+        <th mat-header-cell *matHeaderCellDef> Cancel </th>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="handleButtonCancel(element)">Cancel</button>
+        </td>
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
