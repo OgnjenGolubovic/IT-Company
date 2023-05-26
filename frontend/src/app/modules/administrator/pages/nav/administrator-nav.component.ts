@@ -12,7 +12,10 @@ export interface NavRoute {
 })
 export class AdministratorNavComponent implements OnInit {
   m_Routes: NavRoute[] = [
-
+    {
+      path: 'permissions',
+      title: 'Permissions'
+    },
   ];
   constructor() { }
 

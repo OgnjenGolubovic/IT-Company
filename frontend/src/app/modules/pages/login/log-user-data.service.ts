@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 export interface User {
   id: number;
   role: number;
+  secretKey: boolean;
 }
 
 @Injectable({
@@ -12,9 +13,11 @@ export interface User {
 })
 export class UserDataService{
   private m_TokenSubject: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
+  private m_UsernameSubject: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
   private m_UserDataSubject: BehaviorSubject<null | User> = new BehaviorSubject<null | User>(null);
 
   public m_Token$ = this.m_TokenSubject.asObservable();
+  public m_Username$ = this.m_UsernameSubject.asObservable();
   public m_UserData$ = this.m_UserDataSubject.asObservable();
 
   constructor(private cookieService: CookieService){
@@ -39,5 +42,8 @@ export class UserDataService{
   }
   set setUserData(userData: null | User){
     this.m_UserDataSubject.next(userData);
+  }
+  set setUsername(userData: null | string){
+    this.m_UsernameSubject.next(userData);
   }
 }
