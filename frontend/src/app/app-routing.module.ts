@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from "./modules/pages/login/log-auth.guard";
 import { LoginComponent } from "./modules/pages/login/login.component";
+import { RegisterComponent } from './modules/pages/register/register.component';
 
 
 const routes: Routes = [
@@ -25,8 +26,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/human-resources/human-resources.module').then(ac => ac.HumanResourcesModule),
     canActivate : [AuthGuard]
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent }
+
 ];
 
 @NgModule({

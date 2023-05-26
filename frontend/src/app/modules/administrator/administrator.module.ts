@@ -12,11 +12,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
 
 @NgModule({
   declarations: [
     AdministratorComponent,
     AdministratorNavComponent,
+    RegistrationRequestsComponent,
   ],
   imports: [
     CommonModule,

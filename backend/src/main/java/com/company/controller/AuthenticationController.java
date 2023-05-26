@@ -2,6 +2,8 @@ package com.company.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.company.dto.RegisteredUserDTO;
+import com.company.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,11 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.company.config.JwtAuthenticationRequest;
@@ -42,6 +40,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private EmailSenderService emailSenderService;
 	
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
@@ -66,4 +67,37 @@ public class AuthenticationController {
 		// Vrati token kao odgovor na uspesnu autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
 	}
+
+
+	@PostMapping("/registration")
+	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
+
+		if (existUser != null) {
+			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
+		}
+
+		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
+		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
+
+		userService.registerUser(registeredUserDTO);
+		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+		//System.out.println(registeredUserDTO.getEmail());
+
+		userService.createRegisterRequest(registeredUserDTO);
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@GetMapping("/verify-email/{email}")
+	public Boolean verifyEmail(@PathVariable String email){
+		User user = userService.findByUsername(email);
+		if (user == null) {
+			return false;
+		}
+		user.setEnabled(true);
+		userService.save(user);
+		return true;
+	}
+
 }

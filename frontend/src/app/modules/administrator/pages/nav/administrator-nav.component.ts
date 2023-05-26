@@ -13,6 +13,12 @@ export interface NavRoute {
 export class AdministratorNavComponent implements OnInit {
   m_Routes: NavRoute[] = [
 
+    {
+      path: 'registration-requests',
+      title: 'Registration requests'
+    }
+
+
   ];
   constructor() { }
 
