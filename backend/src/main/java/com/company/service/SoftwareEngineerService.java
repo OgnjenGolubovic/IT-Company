@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.SoftwareEngineerDTO;
 import com.company.model.SoftwareEngineer;
 import com.company.repository.SoftwareEngineerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,22 @@ public class SoftwareEngineerService {
             return softwareEngineer.getId();
         }
         return 0;
+    }
+
+    public void updateProfile(SoftwareEngineerDTO softwareEngineerDTO) {
+
+    SoftwareEngineer se = softwareEngineerRepository.findByUsername(softwareEngineerDTO.getEmail());
+
+    se.setName(softwareEngineerDTO.getName());
+    se.setSurname(softwareEngineerDTO.getSurname());
+    se.setState(softwareEngineerDTO.getState());
+    se.setCity(softwareEngineerDTO.getCity());
+    se.setStreet(softwareEngineerDTO.getStreet());
+    se.setStreetNumber(softwareEngineerDTO.getStreetNumber());
+    se.setPhoneNumber(softwareEngineerDTO.getPhone());
+    se.setSkills(softwareEngineerDTO.getSkills());
+
+    softwareEngineerRepository.save(se);
+
     }
 }

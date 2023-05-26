@@ -16,6 +16,12 @@ export interface NavRoute {
 export class SoftwareEngineerNavComponent implements OnInit {
 
   m_Routes: NavRoute[] = [
+
+    {
+      path: 'profile',
+      title: 'Profile'
+    }
+
   ];
   constructor() { 
   }

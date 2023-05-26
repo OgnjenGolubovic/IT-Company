@@ -4,6 +4,7 @@ import com.company.model.enums.CompanyRole;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 @SuppressWarnings("serial")
@@ -12,7 +13,7 @@ public class ProjectManager extends User{
 
     public ProjectManager(){ super(); }
 
-    public ProjectManager(String email, String password, String name, String surname, String state, String city, String street, String streetNumber, String phone, CompanyRole cr) {
+    public ProjectManager(String email, String password, String name, String surname, String state, String city, String street, String streetNumber, String phone, CompanyRole cr, List<Role> roles) {
 
         super();
         this.setUsername(email);
@@ -25,6 +26,6 @@ public class ProjectManager extends User{
         this.setStreetNumber(streetNumber);
         this.setPhoneNumber(phone);
         this.setCompanyRole(cr);
-
+        this.setRoles(roles);
     }
 }

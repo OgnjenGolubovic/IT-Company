@@ -22,6 +22,9 @@ import java.util.List;
 public class UserService {
 
 	@Autowired
+	private RoleService roleService;
+
+	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
@@ -49,21 +52,25 @@ public class UserService {
 	public User registerUser(RegisteredUserDTO userRequest) {
 
 		CompanyRole cr;
+		List<Role> roles;
 
 		if(userRequest.getCompanyRole().equals("humanResourceManager")){
 			cr = CompanyRole.HR;
+			roles = roleService.findByName("ROLE_HUMAN_RESOURCES");
 			HumanResources hr = new HumanResources(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
-					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr, roles);
 			return this.humanResourcesRepository.save(hr);
 		} else if (userRequest.getCompanyRole().equals("softwareEngineer")) {
 			cr = CompanyRole.SOFTWARE_ENGINEER;
+			roles = roleService.findByName("ROLE_SOFTWARE_ENGINEER");
 			SoftwareEngineer se = new SoftwareEngineer(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
-					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr, Calendar.getInstance());
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr, Calendar.getInstance(), roles);
 			return this.softwareEngineerRepository.save(se);
 		} else if (userRequest.getCompanyRole().equals("projectManager")) {
 			cr = CompanyRole.PROJECT_MANAGER;
+			roles = roleService.findByName("ROLE_PROJECT_MANAGER");
 			ProjectManager pm = new ProjectManager(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
-					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr, roles);
 			return this.projectMangerRepository.save(pm);
 		} else{
 			cr = null;
