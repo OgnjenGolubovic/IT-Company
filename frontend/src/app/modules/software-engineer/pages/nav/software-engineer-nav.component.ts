@@ -20,6 +20,11 @@ export class SoftwareEngineerNavComponent implements OnInit {
       path: 'qr-code',
       title: 'qr-code'
     },
+    {
+      path: 'profile',
+      title: 'Profile'
+    }
+
   ];
   constructor() { 
   }

@@ -8,6 +8,8 @@ import com.company.dto.SecurityCodeDTO;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import io.jsonwebtoken.ExpiredJwtException;
+import com.company.dto.RegisteredUserDTO;
+import com.company.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +46,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private TwoFactorAuthenticator twoFactorAuthenticator;
-
+	@Autowired
+	private EmailSenderService emailSenderService;
+	
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
 	@PostMapping("/login")
@@ -112,4 +116,37 @@ public class AuthenticationController {
 			return new ResponseEntity<UserTokenState>(new UserTokenState(),HttpStatus.UNAUTHORIZED);
 		}
 	}
+
+
+	@PostMapping("/registration")
+	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
+
+		if (existUser != null) {
+			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
+		}
+
+		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
+		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
+
+		userService.registerUser(registeredUserDTO);
+		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+		//System.out.println(registeredUserDTO.getEmail());
+
+		userService.createRegisterRequest(registeredUserDTO);
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@GetMapping("/verify-email/{email}")
+	public Boolean verifyEmail(@PathVariable String email){
+		User user = userService.findByUsername(email);
+		if (user == null) {
+			return false;
+		}
+		user.setEnabled(true);
+		userService.save(user);
+		return true;
+	}
+
 }

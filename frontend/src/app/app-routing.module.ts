@@ -6,6 +6,8 @@ import { LoginComponent } from "./modules/pages/login/login.component";
 import { PageNotFoundComponent } from "./modules/pages/page-not-found/page-not-found.component";
 import { SecurityCodeComponent } from './modules/pages/security-code/security-code.component';
 import { CodeGuard } from './modules/pages/login/log-code-guard';
+import { RegisterComponent } from './modules/pages/register/register.component';
+
 
 const routes: Routes = [
   {
@@ -28,11 +30,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/human-resources/human-resources.module').then(ac => ac.HumanResourcesModule),
     canActivate : [AuthGuard]
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'not-found', component: PageNotFoundComponent },
-  { path: 'code', component: SecurityCodeComponent, canActivate : [CodeGuard] },
+  { path: 'code', component: SecurityCodeComponent },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
+  { path: 'register', component: RegisterComponent },
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 
 @NgModule({

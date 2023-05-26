@@ -6,16 +6,14 @@ import com.company.config.TokenUtils;
 import com.company.config.TwoFactorAuthenticator;
 import com.company.dto.QrCodeDTO;
 import com.company.dto.UserDataDTO;
+import com.company.model.User;
 import com.company.service.*;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,4 +75,17 @@ public class UserController {
         userService.setTFAByUsername(username);
         return ResponseEntity.ok("");
     }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Integer id){
+        User user = userService.findById(id);
+        if (user == null) {
+            return null;
+        }
+        return user;
+    }
+
+
+
+
 }

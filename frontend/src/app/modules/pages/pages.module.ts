@@ -18,13 +18,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { QrCodeComponent } from './qr-code/qr-code.component';
 import { QRCodeModule  } from 'angularx-qrcode';
 import { SecurityCodeComponent } from './security-code/security-code.component';
+import { RegisterComponent } from './register/register.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
     LoginComponent,
     PageNotFoundComponent,
     QrCodeComponent,
-    SecurityCodeComponent
+    SecurityCodeComponent,
+    RegisterComponent
   ],
   imports: [
     QRCodeModule,
@@ -42,6 +45,7 @@ import { SecurityCodeComponent } from './security-code/security-code.component';
     MatFormFieldModule,
     MatRadioModule,
     MatSortModule,
+    MatSelectModule,
     MatSnackBarModule
   ]
 })
