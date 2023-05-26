@@ -4,16 +4,23 @@ package com.company.config;
 public class UserTokenState {
 	
     private String accessToken;
+    private String refreshToken;
     private Long expiresIn;
+    private Long expiresInRefresh;
 
     public UserTokenState() {
         this.accessToken = null;
+        this.refreshToken = null;
         this.expiresIn = null;
+        this.expiresInRefresh = null;
+
     }
 
-    public UserTokenState(String accessToken, long expiresIn) {
+    public UserTokenState(String accessToken, String refreshToken, long expiresIn, long expiresInRefresh) {
         this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
         this.expiresIn = expiresIn;
+        this.expiresInRefresh = expiresInRefresh;
     }
 
     public String getAccessToken() {
@@ -24,6 +31,14 @@ public class UserTokenState {
         this.accessToken = accessToken;
     }
 
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+
     public Long getExpiresIn() {
         return expiresIn;
     }
@@ -31,5 +46,13 @@ public class UserTokenState {
     public void setExpiresIn(Long expiresIn) {
         this.expiresIn = expiresIn;
     }
-    
+
+    public Long getExpiresInRefresh() {
+        return expiresInRefresh;
+    }
+
+    public void setExpiresInRefresh(Long expiresInRefresh) {
+        this.expiresInRefresh = expiresInRefresh;
+    }
+
 }

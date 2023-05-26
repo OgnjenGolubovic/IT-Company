@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { CookieService } from 'ngx-cookie-service';
 
 export interface User {
   id: number;
   role: number;
+  secretKey: boolean;
 }
 
 @Injectable({
@@ -11,29 +13,37 @@ export interface User {
 })
 export class UserDataService{
   private m_TokenSubject: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
+  private m_UsernameSubject: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
   private m_UserDataSubject: BehaviorSubject<null | User> = new BehaviorSubject<null | User>(null);
 
   public m_Token$ = this.m_TokenSubject.asObservable();
+  public m_Username$ = this.m_UsernameSubject.asObservable();
   public m_UserData$ = this.m_UserDataSubject.asObservable();
 
-  constructor(){
-    const token = localStorage.getItem('token');
-    if(token){
-      this.setToken = token;
-    }
-  }
+  constructor(private cookieService: CookieService){
 
+  }
   set setToken(token: null | string){
     if(token){
       this.m_TokenSubject.next(token);
-      localStorage.setItem('token', token);
     }else{
       this.m_TokenSubject.next(null);
-      localStorage.removeItem('token');
     }
   }
+  setRefreshToken(token: null | string, expires: number){
+    if(token){
+      this.cookieService.set('refreshToken', token, expires, '/', 'localhost', true, 'Strict');
+    }else{
+      this.cookieService.delete('refreshToken', '/', 'localhost', true);
+    }
+  }
+  getToken(): string{
+    return this.cookieService.get('refreshToken');
+  }
   set setUserData(userData: null | User){
-    console.log(userData);
     this.m_UserDataSubject.next(userData);
+  }
+  set setUsername(userData: null | string){
+    this.m_UsernameSubject.next(userData);
   }
 }

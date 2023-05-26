@@ -60,12 +60,18 @@ public class User implements Serializable, UserDetails{
 	@Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
+    @Column
+    private String secretKey;
+
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
-	
+
+	@Column(nullable = true)
+	private boolean tfa;
+
 	public User() {
 		super();
 	}
@@ -232,5 +238,21 @@ public class User implements Serializable, UserDetails{
 	
 	public void setEnabled(boolean enabled) {
 	    this.enabled = enabled;
+	}
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+	public boolean isTfa() {
+		return tfa;
+	}
+
+	public void setTfa(boolean tfa) {
+		this.tfa = tfa;
 	}
 }

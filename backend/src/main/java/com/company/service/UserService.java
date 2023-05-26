@@ -41,6 +41,16 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
+	public User setTFAByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username);
+		user.setTfa(true);
+		return userRepository.save(user);
+	}
+	public User setSecretKeyByUsername(String username, String secretKey){
+		User user = userRepository.findByUsername(username);
+		user.setSecretKey(secretKey);
+		return userRepository.save(user);
+	}
 	public User findById(Integer id) throws AccessDeniedException {
 		return userRepository.findById(id).orElseGet(null);
 	}

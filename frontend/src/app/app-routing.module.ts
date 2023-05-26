@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from "./modules/pages/login/log-auth.guard";
+import { AntiAuthGuard } from "./modules/pages/login/log-anti-auth.guard";
 import { LoginComponent } from "./modules/pages/login/login.component";
+import { PageNotFoundComponent } from "./modules/pages/page-not-found/page-not-found.component";
+import { SecurityCodeComponent } from './modules/pages/security-code/security-code.component';
+import { CodeGuard } from './modules/pages/login/log-code-guard';
 import { RegisterComponent } from './modules/pages/register/register.component';
 
 
@@ -27,9 +31,11 @@ const routes: Routes = [
     canActivate : [AuthGuard]
   },
   { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'code', component: SecurityCodeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
-
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 
 @NgModule({

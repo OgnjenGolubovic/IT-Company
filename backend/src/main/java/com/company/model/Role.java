@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.List;
 
 // POJO koji implementira Spring Security GrantedAuthority kojim se mogu definisati role u aplikaciji
 @Entity
@@ -15,10 +16,18 @@ public class Role implements GrantedAuthority {
 	@Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Column(name="name")
-    String name;
+    @Column(name="name",updatable = false)
+    private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER,
+    cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+    private List<Permission> permissions;
 
     @JsonIgnore
     @Override
@@ -43,4 +52,11 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
 }

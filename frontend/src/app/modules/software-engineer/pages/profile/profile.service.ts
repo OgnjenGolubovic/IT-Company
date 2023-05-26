@@ -25,7 +25,7 @@ import { User } from "./profile.interface";
 
     getById() : Observable<any> {
         console.log(this.id);
-          return this.http.get<any>(this.route + 'api/users/' + this.id, {headers: this.headers});
+          return this.http.get<any>(this.route + 'users/' + this.id, {headers: this.headers});
       }
 
   }
