@@ -1,21 +1,20 @@
 package com.company.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.company.dto.RegisteredUserDTO;
 //import com.company.mappers.RegisteredUserMapper;
 import com.company.dto.enums.Status;
-import com.company.model.RegistrationRequest;
+import com.company.model.*;
 import com.company.model.enums.CompanyRole;
-import com.company.repository.RegistrationRequestRepository;
+import com.company.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.company.model.User;
-import com.company.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,13 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private HumanResourcesRepository humanResourcesRepository;
+	@Autowired
+	private ProjectMangerRepository projectMangerRepository;
+	@Autowired
+	private SoftwareEngineerRepository softwareEngineerRepository;
 
 	@Autowired
 	private RegistrationRequestRepository registrationRequestRepository;
@@ -46,34 +52,27 @@ public class UserService {
 
 		if(userRequest.getCompanyRole().equals("humanResourceManager")){
 			cr = CompanyRole.HR;
+			HumanResources hr = new HumanResources(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
+			return this.humanResourcesRepository.save(hr);
 		} else if (userRequest.getCompanyRole().equals("softwareEngineer")) {
 			cr = CompanyRole.SOFTWARE_ENGINEER;
+			SoftwareEngineer se = new SoftwareEngineer(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr, Calendar.getInstance());
+			return this.softwareEngineerRepository.save(se);
 		} else if (userRequest.getCompanyRole().equals("projectManager")) {
 			cr = CompanyRole.PROJECT_MANAGER;
+			ProjectManager pm = new ProjectManager(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
+			return this.projectMangerRepository.save(pm);
 		} else{
 			cr = null;
+			User u = new User(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
+					userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
+			return this.userRepository.save(u);
 		}
 
-		User u = new User(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
-				userRequest.getState(), userRequest.getCity(), userRequest.getStreet(), userRequest.getStreetNumber(), userRequest.getPhone(), cr);
-		//u = new RegisteredUserMapper(userRequest);
 
-		//u.setUsername(userRequest.getUsername());
-		
-		// pre nego sto postavimo lozinku u atribut hesiramo je kako bi se u bazi nalazila hesirana lozinka
-		// treba voditi racuna da se koristi isi password encoder bean koji je postavljen u AUthenticationManager-u kako bi koristili isti algoritam
-		//u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-		/*
-		u.setFirstName(userRequest.getFirstname());
-		u.setLastName(userRequest.getLastname());
-		u.setEnabled(true);
-		u.setEmail(userRequest.getEmail());
-
-		// u primeru se registruju samo obicni korisnici i u skladu sa tim im se i dodeljuje samo rola USER
-		List<Role> roles = roleService.findByName("ROLE_USER");
-		u.setRoles(roles);*/
-		
-		return this.userRepository.save(u);
 	}
 
 
@@ -101,3 +100,21 @@ public class UserService {
 
 	}
 }
+
+
+//u = new RegisteredUserMapper(userRequest);
+
+//u.setUsername(userRequest.getUsername());
+
+// pre nego sto postavimo lozinku u atribut hesiramo je kako bi se u bazi nalazila hesirana lozinka
+// treba voditi racuna da se koristi isi password encoder bean koji je postavljen u AUthenticationManager-u kako bi koristili isti algoritam
+//u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		/*
+		u.setFirstName(userRequest.getFirstname());
+		u.setLastName(userRequest.getLastname());
+		u.setEnabled(true);
+		u.setEmail(userRequest.getEmail());
+
+		// u primeru se registruju samo obicni korisnici i u skladu sa tim im se i dodeljuje samo rola USER
+		List<Role> roles = roleService.findByName("ROLE_USER");
+		u.setRoles(roles);*/
