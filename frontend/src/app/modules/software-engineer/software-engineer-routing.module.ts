@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SoftwareEngineerComponent } from './software-engineer.component';
 import { QrCodeComponent } from '../pages/qr-code/qr-code.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
     component: SoftwareEngineerComponent,
     children: [
       { path: 'qr-code', component: QrCodeComponent },
-      { path: 'profile', component: ProfileComponent}
+      { path: 'profile', component: ProfileComponent},
+      { path: 'projects', component: ProjectsComponent}
     ]
   }
 ];

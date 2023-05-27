@@ -1,0 +1,12 @@
+<div style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">
+    <h1>Software Engineer Projects:</h1>
+</div>
+
+<div style="margin-left: 20px;">
+    <div *ngFor="let project of projects">
+    <input type="text" [(ngModel)]="project.name" placeholder="Name" [disabled]="true">
+    <input type="text" [(ngModel)]="project.duration" placeholder="Duration" [disabled]="true">
+    <input type="text" [(ngModel)]="project.job_description" placeholder="Job description">
+    <button (click)="submit(project)">Submit</button>
+   </div>
+</div>

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SoftwareEngineerService {
     @Autowired
@@ -34,5 +36,10 @@ public class SoftwareEngineerService {
 
     softwareEngineerRepository.save(se);
 
+    }
+
+    public SoftwareEngineer findById(Integer id) {
+
+        return this.softwareEngineerRepository.findById(id).orElse(null);
     }
 }

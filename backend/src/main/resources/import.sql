@@ -14,6 +14,13 @@ INSERT INTO USER_ROLE (user_id, role_id) values (2, 2);
 INSERT INTO USER_ROLE (user_id, role_id) values (3, 3);
 INSERT INTO USER_ROLE (user_id, role_id) values (4, 4);
 
+insert into projects (id, name, duration) values (1, 'First Project', '2 months')
+insert into projects (id, name, duration) values (2, 'Second Project', '3 months')
+insert into projects (id, name, duration) values (3, 'Third Project', '4 months')
+
+insert into se_project (project_id, software_engineer_id, job_description) values (1, 1, 'Prvi opis posla');
+insert into se_project (project_id, software_engineer_id, job_description) values (2, 1, 'Drugi opis posla');
+
 insert into permissions (name) values ('USERS_C');
 insert into permissions (name) values ('USERS_R');
 insert into permissions (name) values ('USERS_U');
