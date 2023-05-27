@@ -6,6 +6,7 @@ public class ProjectDTO {
 
     private String name;
     private String duration;
+    private Integer user_id;
     private String job_description;
 
     public ProjectDTO() { super(); }
@@ -32,5 +33,13 @@ public class ProjectDTO {
 
     public void setJob_description(String job_description) {
         this.job_description = job_description;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 }

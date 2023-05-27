@@ -41,16 +41,21 @@ public class SoftwareEngineerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping(value = "/projectUpdate", consumes = "application/json")
+    @ResponseBody
+    public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO){
+
+        this.softwareEngineerProjectService.updateProject(projectDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping(value = "/projects/{id}")
     public List<ProjectDTO> getProjects(@PathVariable Integer id){
 
         List<ProjectDTO> projectsDTO = new ArrayList<>();
 
         List<SoftwareEngineerProject> sep = this.softwareEngineerProjectService.getAllById(id);
-
-//        SoftwareEngineer se = this.softwareEngineerService.findById(id);
-
-//        List<Project> projects = se.getProjects();
 
         projectsDTO = this.projectMapper.ToDTO(sep);
 

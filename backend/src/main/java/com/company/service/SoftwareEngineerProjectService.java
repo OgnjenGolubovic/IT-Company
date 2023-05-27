@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.ProjectDTO;
 import com.company.model.SoftwareEngineerProject;
 import com.company.repository.SoftwareEngineerProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,24 @@ public class SoftwareEngineerProjectService {
         }
         return ret;
     }
+
+
+    public void updateProject(ProjectDTO projectDTO) {
+
+        List<SoftwareEngineerProject> seps;
+        seps = this.softwareEngineerProjectRepository.findAll();
+
+        for(SoftwareEngineerProject sep: seps){
+
+            if(sep.getSoftwareEngineer().getId() == projectDTO.getUser_id() && projectDTO.getName().equals(sep.getProject().getName())){
+                sep.setJobDescription(projectDTO.getJob_description());
+                this.softwareEngineerProjectRepository.save(sep);
+            }
+
+        }
+
+    }
+
 
 
 }

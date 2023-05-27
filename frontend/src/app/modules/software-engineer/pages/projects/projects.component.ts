@@ -27,6 +27,9 @@ export class ProjectsComponent implements OnInit {
   public getProjects(){
     this.projectsService.getProjects().subscribe(res =>{
       this.projects = res;
+      for (const project of this.projects) {
+        project.user_id = this.projectsService.id;
+      }
     })
   }
 
