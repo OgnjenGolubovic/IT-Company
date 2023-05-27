@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hospitalApiUrl:'http://localhost:8084'
+  hospitalApiUrl:'https://localhost:8084'
 };
 
 
