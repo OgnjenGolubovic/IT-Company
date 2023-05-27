@@ -3,8 +3,6 @@ package com.company.controller;
 import com.company.dto.ProjectDTO;
 import com.company.dto.SoftwareEngineerDTO;
 import com.company.mapper.ProjectMapper;
-import com.company.model.Project;
-import com.company.model.SoftwareEngineer;
 import com.company.model.SoftwareEngineerProject;
 import com.company.service.ProjectService;
 import com.company.service.SoftwareEngineerProjectService;
