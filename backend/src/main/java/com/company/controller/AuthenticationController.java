@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 //Kontroler zaduzen za autentifikaciju korisnika
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200")
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 

@@ -8,7 +8,7 @@ import { UserDataService } from "src/app/modules/pages/login/log-user-data.servi
   })
   export class ProjectsService {
        
-    route: string = 'http://localhost:8084/';
+    route: string = 'https://localhost:8084/';
     headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     public id: number = 0;
 

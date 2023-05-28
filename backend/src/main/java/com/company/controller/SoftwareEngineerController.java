@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200")
 @RequestMapping(value = "/softwareEngineer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SoftwareEngineerController {
 

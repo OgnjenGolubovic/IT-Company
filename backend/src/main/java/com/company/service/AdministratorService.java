@@ -91,7 +91,7 @@ public class AdministratorService {
         //Sad saljemo aktivacioni kod useru sa tom email adresom.
        	emailSenderService.sendSimpleEmail(registerRequestDTO.getEmail(),
 				"Verifikacija naloga",
-				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: http://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
+				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: https://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
 
 
     }

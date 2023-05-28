@@ -9,7 +9,7 @@ import { Project, RegisterResponse, SoftwareEngineer } from "../interfaces/assig
   })
   export class AssignWorkersService {
 
-    apiHost: string = 'http://localhost:8084/';
+    apiHost: string = 'https://localhost:8084/';
     headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   
     constructor(

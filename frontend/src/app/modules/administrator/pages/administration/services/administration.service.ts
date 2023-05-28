@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   })
   export class AdministrationService {
   
-    route: string = 'http://localhost:8084/';
+    route: string = 'https://localhost:8084/';
     headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     constructor(
         private http: HttpClient) { }

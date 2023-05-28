@@ -9,7 +9,7 @@ import { RegisterResponse } from "./create-project.interface";
   })
   export class CreateProjectService {
 
-    route: string = 'http://localhost:8084/';
+    route: string = 'https://localhost:8084/';
     headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     constructor(
         private http: HttpClient,
