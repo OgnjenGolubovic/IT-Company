@@ -32,11 +32,53 @@ insert into permissions (name) values ('USER_CREATE_PRIVILEGE');
 insert into permissions (name) values ('USER_READ_PRIVILEGE');
 insert into permissions (name) values ('USER_UPDATE_PRIVILEGE');
 insert into permissions (name) values ('USER_DELETE_PRIVILEGE');
+insert into permissions (name) values ('ADMINISTRATOR_CREATE_PRIVILEGE');
+insert into permissions (name) values ('ADMINISTRATOR_READ_PRIVILEGE');
+insert into permissions (name) values ('ADMINISTRATOR_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('ADMINISTRATOR_DELETE_PRIVILEGE');
+insert into permissions (name) values ('PROJECT_CREATE_PRIVILEGE');
+insert into permissions (name) values ('PROJECT_READ_PRIVILEGE');
+insert into permissions (name) values ('PROJECT_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('PROJECT_DELETE_PRIVILEGE');
+insert into permissions (name) values ('REGISTERREQUEST_CREATE_PRIVILEGE');
+insert into permissions (name) values ('REGISTERREQUEST_READ_PRIVILEGE');
+insert into permissions (name) values ('REGISTERREQUEST_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('REGISTERREQUEST_DELETE_PRIVILEGE');
+insert into permissions (name) values ('SOFTWAREENGINEER_CREATE_PRIVILEGE');
+insert into permissions (name) values ('SOFTWAREENGINEER_READ_PRIVILEGE');
+insert into permissions (name) values ('SOFTWAREENGINEER_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('SOFTWAREENGINEER_DELETE_PRIVILEGE');
+insert into permissions (name) values ('ROLE_CREATE_PRIVILEGE');
+insert into permissions (name) values ('ROLE_READ_PRIVILEGE');
+insert into permissions (name) values ('ROLE_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('ROLE_DELETE_PRIVILEGE');
+insert into permissions (name) values ('PERMISSION_CREATE_PRIVILEGE');
+insert into permissions (name) values ('PERMISSION_READ_PRIVILEGE');
+insert into permissions (name) values ('PERMISSION_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('PERMISSION_DELETE_PRIVILEGE');
 
 insert into role_permission (role_id, permission_id) values (1, 2)
+insert into role_permission (role_id, permission_id) values (1, 3)
+insert into role_permission (role_id, permission_id) values (1, 10)
+insert into role_permission (role_id, permission_id) values (1, 17)
+insert into role_permission (role_id, permission_id) values (1, 18)
+insert into role_permission (role_id, permission_id) values (1, 19)
 insert into role_permission (role_id, permission_id) values (2, 2)
+insert into role_permission (role_id, permission_id) values (2, 3)
 insert into role_permission (role_id, permission_id) values (3, 2)
+insert into role_permission (role_id, permission_id) values (3, 3)
 insert into role_permission (role_id, permission_id) values (4, 2)
+insert into role_permission (role_id, permission_id) values (4, 3)
+insert into role_permission (role_id, permission_id) values (4, 6)
+insert into role_permission (role_id, permission_id) values (4, 7)
+insert into role_permission (role_id, permission_id) values (4, 9)
+insert into role_permission (role_id, permission_id) values (4, 10)
+insert into role_permission (role_id, permission_id) values (4, 14)
+insert into role_permission (role_id, permission_id) values (4, 15)
+insert into role_permission (role_id, permission_id) values (4, 18)
+insert into role_permission (role_id, permission_id) values (4, 22)
+insert into role_permission (role_id, permission_id) values (4, 23)
+insert into role_permission (role_id, permission_id) values (4, 26)
 
 insert into registration_requests (email, name, surname, company_role, status) values ('proba1@gmail.com', 'Milos', 'Milosevic', 2, 1)
 insert into registration_requests (email, name, surname, company_role, status) values ('proba2@gmail.com', 'Marko', 'Markovic', 3, 2)

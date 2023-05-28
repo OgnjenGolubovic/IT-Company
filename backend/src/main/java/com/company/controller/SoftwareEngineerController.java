@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ public class SoftwareEngineerController {
     private SoftwareEngineerProjectService softwareEngineerProjectService;
     @Autowired
     private ProjectMapper projectMapper;
-
+    @PreAuthorize("hasPermission(#id, 'SoftwareEngineer', 'update')")
     @PutMapping(value = "/profileUpdate", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<SoftwareEngineerDTO> updateProfile(@RequestBody SoftwareEngineerDTO softwareEngineerDTO){
@@ -39,7 +40,7 @@ public class SoftwareEngineerController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @PreAuthorize("hasPermission(#id, 'SoftwareEngineer', 'update')")
     @PutMapping(value = "/projectUpdate", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO){
@@ -48,7 +49,7 @@ public class SoftwareEngineerController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @PreAuthorize("hasPermission(#id, 'Project', 'read')")
     @GetMapping(value = "/projects/{id}")
     public List<ProjectDTO> getProjects(@PathVariable Integer id){
 
@@ -60,14 +61,14 @@ public class SoftwareEngineerController {
 
         return projectsDTO;
     }
-
+    @PreAuthorize("hasPermission(#id, 'SoftwareEngineer', 'read')")
     @GetMapping(value = "/all")
     public ResponseEntity<List<SoftwareEngineerDTO>> getAllUsers(HttpServletRequest request){
         List<SoftwareEngineerDTO> users = this.softwareEngineerService.getAll();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasPermission(#id, 'Project', 'create')")
     @PostMapping(value = "/assign")
     public ResponseEntity<SoftwareEngineerProjectDTO> assign(@RequestBody SoftwareEngineerProjectDTO softwareEngineerProjectDTO){
         softwareEngineerProjectService.assign(softwareEngineerProjectDTO);

@@ -57,6 +57,7 @@ export class AdministratorComponent implements OnInit {
       this.snackBar.open('Password Successfully Changed','Ok', {
         duration: 3000
       })
+      this.logout();
     }));
   }
   logout(): void {

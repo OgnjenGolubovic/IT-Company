@@ -63,6 +63,7 @@ public class UserController {
        }
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
     @GetMapping("/qrcode")
     public ResponseEntity<QrCodeDTO> qrCodeGenerator(HttpServletRequest request) {
         String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
@@ -70,6 +71,7 @@ public class UserController {
         userService.setSecretKeyByUsername(username, secretKey.getKey());
         return new ResponseEntity<QrCodeDTO>(new QrCodeDTO(secretKey.getKey()), HttpStatus.OK);
     }
+    @PreAuthorize("hasPermission(#id, 'User', 'update')")
     @GetMapping("/set2FA")
     public ResponseEntity<?> set2FA(HttpServletRequest request) {
         String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
@@ -77,6 +79,7 @@ public class UserController {
         return ResponseEntity.ok("");
     }
 
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Integer id){
         User user = userService.findById(id);
@@ -85,7 +88,7 @@ public class UserController {
         }
         return user;
     }
-
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
     @GetMapping(value = "/all")
     public ResponseEntity<List<UserDTO>> getAllUsers(HttpServletRequest request){
         List<UserDTO> users = this.userService.getAllUsers();

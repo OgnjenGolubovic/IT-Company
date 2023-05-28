@@ -9,6 +9,7 @@ import com.company.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,8 @@ public class PermissionController {
     private PermissionMapper permissionMapper;
     @Autowired
     private RoleMapper roleMapper;
+
+    @PreAuthorize("hasPermission(#id, 'Permission', 'read')")
     @PostMapping(value = "/unowned")
     public ResponseEntity<List<PermissionDTO>> getAllUnownedByRole(@RequestBody RoleDTO roleDTO) {
         return new ResponseEntity<>(permissionMapper.ToDTO(permissionService.getAllUnownedByRole(roleMapper.ToModel(roleDTO))), HttpStatus.OK);
