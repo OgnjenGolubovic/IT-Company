@@ -25,10 +25,11 @@ export class PermissionService {
     return this.http.get<RoleDTO[]>(`${environment.hospitalApiUrl}/roles`, {headers: this.headers});
   }
 
-  getAllPermissions(): Observable<PermissionDTO[]> {
-    return this.http.get<PermissionDTO[]>(`${environment.hospitalApiUrl}/permissions`, {headers: this.headers});
+  getAllPermissions(role : RoleDTO): Observable<PermissionDTO[]> {
+    return this.http.post<PermissionDTO[]>(`${environment.hospitalApiUrl}/permissions/unowned`, role, {headers: this.headers});
   }
   updatePermissions(roleDTO : RoleDTO): Observable<any> {
+    console.log(roleDTO);
     return this.http.post<RoleDTO>(`${environment.hospitalApiUrl}/roles`, roleDTO, {headers: this.headers});
   }
 }

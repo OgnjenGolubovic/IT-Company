@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,28 +63,31 @@ public class AuthenticationController {
 			@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
 		// Ukoliko kredencijali nisu ispravni, logovanje nece biti uspesno, desice se
 		// AuthenticationException
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+		try {
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
-		// Ukoliko je autentifikacija uspesna, ubaci korisnika u trenutni security
-		// kontekst
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			// Ukoliko je autentifikacija uspesna, ubaci korisnika u trenutni security
+			// kontekst
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// Kreiraj token za tog korisnika
-		User user = (User) authentication.getPrincipal();
+			// Kreiraj token za tog korisnika
+			User user = (User) authentication.getPrincipal();
 
-		String jwt = tokenUtils.generateToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
-		int expiresIn = tokenUtils.getExpiredIn();
+			String jwt = tokenUtils.generateToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
+			int expiresIn = tokenUtils.getExpiredIn();
 
-		String refreshJwt = tokenUtils.generateRefreshToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
-		int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
+			String refreshJwt = tokenUtils.generateRefreshToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
+			int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
 
-        if(!user.isTfa()){
-            return ResponseEntity.ok(new UserTokenState(jwt, refreshJwt, expiresIn, expiresInRefresh));
-        }else{
-            return new ResponseEntity<UserTokenState>(new UserTokenState(), HttpStatus.OK);
-        }
-
+			if (!user.isTfa()) {
+				return ResponseEntity.ok(new UserTokenState(jwt, refreshJwt, expiresIn, expiresInRefresh));
+			} else {
+				return new ResponseEntity<UserTokenState>(new UserTokenState(), HttpStatus.OK);
+			}
+		}catch(BadCredentialsException ex) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
 	}
 
     @PostMapping("/qrcode")
