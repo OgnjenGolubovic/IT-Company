@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.company.config.*;
 import com.company.dto.QrCodeDTO;
 import com.company.dto.SecurityCodeDTO;
+import com.company.model.EmailBlacklist;
+import com.company.repository.EmailBlacklistRepository;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -27,9 +29,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.company.model.User;
 import com.company.service.UserService;
 
+import java.util.Calendar;
+
 //Kontroler zaduzen za autentifikaciju korisnika
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200")
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
@@ -49,6 +53,8 @@ public class AuthenticationController {
 	private TwoFactorAuthenticator twoFactorAuthenticator;
 	@Autowired
 	private EmailSenderService emailSenderService;
+	@Autowired
+	private EmailBlacklistRepository emailBlacklistRepository;
 	
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
@@ -124,6 +130,17 @@ public class AuthenticationController {
 
 	@PostMapping("/registration")
 	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+
+		EmailBlacklist eb = emailBlacklistRepository.findByEmail(registeredUserDTO.getEmail());
+
+		Calendar now = Calendar.getInstance();
+
+		if(eb != null){
+			if(eb.getBlacklistedUntil().after(now)){
+				throw new IllegalArgumentException("Blacklisted email");
+			}
+		}
+
 		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
 
 		if (existUser != null) {

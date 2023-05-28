@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.AdminDTO;
 import com.company.dto.PasswordDTO;
 import com.company.dto.RegisterRequestDTO;
 import com.company.dto.enums.Status;
@@ -90,7 +91,7 @@ public class AdministratorService {
         //Sad saljemo aktivacioni kod useru sa tom email adresom.
        	emailSenderService.sendSimpleEmail(registerRequestDTO.getEmail(),
 				"Verifikacija naloga",
-				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: http://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
+				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: https://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
 
 
     }
@@ -98,7 +99,7 @@ public class AdministratorService {
 
     public void cancelRegistration(RegisterRequestDTO registerRequestDTO) {
 
-        //Stavljamo status registration requesta na approved
+        //Stavljamo status registration requesta na canceled
         List<RegistrationRequest> registrationRequests;
         registrationRequests = registrationRequestRepository.findAll();
 
@@ -125,7 +126,26 @@ public class AdministratorService {
                 "Verifikacija naloga odbijena",
                 "Korisnik sa email adresom: " + registerRequestDTO.getEmail() + " je odbijen.");
 
+        //Na kraju brisemo usera iz baze posto je odbijen
+        User u = userRepository.findByUsername(registerRequestDTO.getEmail());
+        userRepository.delete(u);
 
+    }
+
+
+    public void updateProfile(AdminDTO adminDTO) {
+
+        Administrator a = administratorRepository.findByUsername(adminDTO.getEmail());
+
+        a.setName(adminDTO.getName());
+        a.setSurname(adminDTO.getSurname());
+        a.setState(adminDTO.getState());
+        a.setCity(adminDTO.getCity());
+        a.setStreet(adminDTO.getStreet());
+        a.setStreetNumber(adminDTO.getStreetNumber());
+        a.setPhoneNumber(adminDTO.getPhone());
+
+        administratorRepository.save(a);
     }
     public boolean checkIfPasswordChanged(String username){
         return administratorRepository.findByUsername(username).isPasswordChanged();

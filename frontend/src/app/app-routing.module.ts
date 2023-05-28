@@ -32,9 +32,9 @@ const routes: Routes = [
   },
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'not-found', component: PageNotFoundComponent },
-  { path: 'code', component: SecurityCodeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'code', component: SecurityCodeComponent, canActivate :[CodeGuard] },
+  { path: 'login', component: LoginComponent, canActivate :[AntiAuthGuard] },
+  { path: 'register', component: RegisterComponent, canActivate :[AntiAuthGuard] },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 

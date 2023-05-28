@@ -1,0 +1,66 @@
+<!-- <div style="margin-top: 20px; margin-left: 20px;">
+
+    <mat-card>
+        <mat-card-title>Create new project: </mat-card-title>
+    
+        <mat-card-content>
+          <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
+    
+            <mat-form-field>
+              <input type="text" matInput placeholder="Name" formControlName="name">
+              <mat-error
+                *ngIf="this.createProjectForm.get('name')?.touched && this.createProjectForm.get('name')?.hasError('required')">
+                Name of the project is required</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field>
+              <input type="text" matInput placeholder="Duration" formControlName="duration">
+              <mat-error
+                *ngIf="this.createProjectForm.get('duration')?.touched && this.createProjectForm.get('duration')?.hasError('required')">
+                Duration of the project is required</mat-error>
+            </mat-form-field>
+    
+            <div class="button">
+              <button type="submit" mat-button [disabled]="!createProjectForm.valid">Create Project</button>
+            </div>
+    
+          </form>
+        </mat-card-content>
+    </mat-card>
+
+</div> -->
+
+<div style="width: 20%; margin-left: 30px; margin-top: 30px;">
+    <mat-card>
+      <mat-card-title>Create new project: </mat-card-title>
+  
+      <mat-card-content>
+        <form [formGroup]="createProjectForm" (ngSubmit)="createProject()">
+  
+          
+  
+          <mat-form-field>
+            <input type="text" matInput placeholder="Name" formControlName="name">
+            <mat-error
+              *ngIf="this.createProjectForm.get('name')?.touched && this.createProjectForm.get('name')?.hasError('required')">
+              Name of the project is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input type="text" matInput placeholder="Duration" formControlName="duration">
+            <mat-error
+              *ngIf="this.createProjectForm.get('duration')?.touched && this.createProjectForm.get('duration')?.hasError('required')">
+              Duration of the project is required</mat-error>
+          </mat-form-field>
+
+
+          <div class="button">
+            <!-- Button is disabled(not clickable), if our RegisterForm contains Validation Errors -->
+            <button type="submit" mat-button [disabled]="!createProjectForm.valid">Create project</button>
+          </div>
+  
+        </form>
+      </mat-card-content>
+  
+    </mat-card>
+</div>

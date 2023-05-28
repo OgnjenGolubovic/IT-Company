@@ -11,7 +11,7 @@ export class AntiAuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const token = this.m_UserDataService.getToken();
-    return this.m_UserDataService.m_UserData$.pipe(filter(user_data => user_data !== null),map(user_data => {
+    return this.m_UserDataService.m_UserData$.pipe(filter(user_data => user_data !== null || token === ""),map(user_data => {
         return !token ? true : this.m_Router.createUrlTree([this.getRole(user_data?.role)]);
     }));
   }

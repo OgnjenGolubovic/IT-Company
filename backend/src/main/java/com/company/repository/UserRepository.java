@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.company.model.User;
 
+import javax.transaction.Transactional;
 import java.awt.print.Pageable;
 import java.util.List;
 
@@ -13,5 +14,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByUsername(String username);
-    
+    @Transactional
+    void deleteByUsername(String email);
 }

@@ -9,13 +9,13 @@ import { RegisterRequest, RegisterResponse } from "../interfaces";
 })
 export class AuthService {
 
-  apiHost: string = 'http://localhost:8084/';
+  apiHost: string = 'https://localhost:8084/';
   headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
   constructor(
     private http: HttpClient,
-    private snackbar: MatSnackBar,
+    private snackbar: MatSnackBar
   ) { }
   
   register(registerRequest: any): Observable<RegisterResponse> {

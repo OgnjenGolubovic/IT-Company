@@ -15,6 +15,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AddPermissionDialog, DeletePermissionDialog, PermissionsComponent } from './pages/permissions/permissions.component';
 import { MatCardModule } from '@angular/material/card';
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
+import { AdministrationComponent } from './pages/administration/administration.component';
+import { CreateProjectComponent } from './pages/create-project/create-project.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +31,10 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
     DeletePermissionDialog,
     ChangePasswordDialog,
     RegistrationRequestsComponent,
+    AdministrationComponent,
+    CreateProjectComponent,
+    AssignWorkersComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +49,9 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
     MatToolbarModule,
     MatSidenavModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class AdministratorModule { }

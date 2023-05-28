@@ -2,9 +2,7 @@ package com.company.model;
 
 import com.company.model.enums.CompanyRole;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +16,12 @@ public class SoftwareEngineer extends User {
 
     @Column(nullable = true)
     private String skills;
+
+//    @ManyToMany(mappedBy = "jobDescription")
+//    private List<Project> projectsDescription;
+
+    @ManyToMany(mappedBy = "softwareEngineer")
+    private List<SoftwareEngineerProject> softwareEngineerProjects;
 
     public SoftwareEngineer (){ super(); }
 
@@ -35,8 +39,8 @@ public class SoftwareEngineer extends User {
         this.setStreetNumber(streetNumber);
         this.setPhoneNumber(phone);
         this.setCompanyRole(cr);
-        this.timeOfRegistration = instance;
-        this.skills = "";
+        this.setTimeOfRegistration(instance);
+        this.setSkills("");
         this.setRoles(roles);
     }
 
@@ -55,4 +59,6 @@ public class SoftwareEngineer extends User {
     public void setSkills(String skills) {
         this.skills = skills;
     }
+
+
 }

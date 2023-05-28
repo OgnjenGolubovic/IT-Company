@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.getById().subscribe(res =>{
       this.user = res;
       this.user.email = res.username;
+      this.user.phone = res.phoneNumber;
     })
   }
 

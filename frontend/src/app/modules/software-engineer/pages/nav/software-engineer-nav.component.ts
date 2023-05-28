@@ -23,6 +23,10 @@ export class SoftwareEngineerNavComponent implements OnInit {
     {
       path: 'profile',
       title: 'Profile'
+    },
+    {
+      path: 'projects',
+      title: 'Projects'
     }
 
   ];

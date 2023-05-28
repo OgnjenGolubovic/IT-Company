@@ -4,6 +4,7 @@ import java.io.File;
 
 public class SoftwareEngineerDTO {
 
+    private Integer id;
     private String email;
     private String name;
     private String surname;
@@ -17,8 +18,10 @@ public class SoftwareEngineerDTO {
 
     public SoftwareEngineerDTO(){ super(); }
 
-    public SoftwareEngineerDTO(String email, String name, String surname, String state, String city,
+    public SoftwareEngineerDTO(Integer id, String email, String name, String surname, String state, String city,
                                String street, String streetNumber, String phone, String skills, File cv) {
+        super();
+        this.id = id;
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -29,6 +32,13 @@ public class SoftwareEngineerDTO {
         this.phone = phone;
         this.skills = skills;
         this.cv = cv;
+    }
+
+    public SoftwareEngineerDTO(Integer id, String name, String surname) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -109,5 +119,13 @@ public class SoftwareEngineerDTO {
 
     public void setCv(File cv) {
         this.cv = cv;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
