@@ -123,17 +123,20 @@ public class UserService {
 		List<UserDTO> ret = new ArrayList<>();
 
 		for(User user : users){
-			String cr;
-			if(user.getCompanyRole().equals(CompanyRole.SOFTWARE_ENGINEER)){
-				cr = "Software Engineer";
-			} else if (user.getCompanyRole().equals(CompanyRole.HR)) {
-				cr = "Human Resource Manager";
-			} else if (user.getCompanyRole().equals(CompanyRole.PROJECT_MANAGER)) {
-				cr = "Project Manager";
-			} else { cr = "Administrator"; }
+			if(user.isEnabled()){
+				String cr;
+				if(user.getCompanyRole().equals(CompanyRole.SOFTWARE_ENGINEER)){
+					cr = "Software Engineer";
+				} else if (user.getCompanyRole().equals(CompanyRole.HR)) {
+					cr = "Human Resource Manager";
+				} else if (user.getCompanyRole().equals(CompanyRole.PROJECT_MANAGER)) {
+					cr = "Project Manager";
+				} else { cr = "Administrator"; }
 
-			UserDTO u = new UserDTO(user.getName(), user.getSurname(), cr, user.getPhoneNumber());
-			ret.add(u);
+
+				UserDTO u = new UserDTO(user.getName(), user.getSurname(), cr, user.getPhoneNumber());
+				ret.add(u);
+			}
 		}
 
 		return ret;

@@ -19,28 +19,21 @@ public class ProjectService {
     @Autowired
     private SoftwareEngineerRepository softwareEngineerRepository;
 
-    public List<ProjectDTO> getById(Integer id) {
 
-    List<ProjectDTO> projects = new ArrayList<>();
+    public List<ProjectDTO> getAll() {
+        List<Project> temp = this.projectRepository.findAll();
+        List<ProjectDTO> ret = new ArrayList<>();
 
-    List<Project> temps = this.projectRepository.findAll();
-
-    //prolazimo kroz sve projekte u bazi i trazimo projekte na kom radi nas ulogovani korisnik
-    for (Project project : temps){
-//        for(SoftwareEngineer se : project.getSoftwareEngineers()){
-//            if(se.getId() == id){
-//
-//            }
-//        }
+        for(Project project : temp){
+            ProjectDTO p = new ProjectDTO(project.getName(), project.getDuration());
+            ret.add(p);
+        }
+        return ret;
     }
 
 
-    return projects;
-
+    public void createProject(ProjectDTO projectDTO) {
+        Project p = new Project(projectDTO.getName(), projectDTO.getDuration());
+        projectRepository.save(p);
     }
-
-
-
-
-
 }

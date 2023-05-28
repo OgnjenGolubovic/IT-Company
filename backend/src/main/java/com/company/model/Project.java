@@ -37,6 +37,11 @@ public class Project  implements Serializable {
 
     public Project(){ super(); }
 
+    public Project(String name, String duration) {
+        this.name = name;
+        this.duration = duration;
+    }
+
     public int getId() {
         return id;
     }

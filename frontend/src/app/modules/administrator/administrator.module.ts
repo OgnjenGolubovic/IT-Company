@@ -16,6 +16,9 @@ import { PermissionsComponent } from './pages/permissions/permissions.component'
 import { MatCardModule } from '@angular/material/card';
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
 import { AdministrationComponent } from './pages/administration/administration.component';
+import { CreateProjectComponent } from './pages/create-project/create-project.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { AdministrationComponent } from './pages/administration/administration.c
     PermissionsComponent,
     RegistrationRequestsComponent,
     AdministrationComponent,
+    CreateProjectComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,9 @@ import { AdministrationComponent } from './pages/administration/administration.c
     MatToolbarModule,
     MatSidenavModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class AdministratorModule { }

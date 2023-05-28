@@ -4,3 +4,8 @@ export interface User {
     companyRole: string;
     phoneNumber: string;
 }
+
+export interface Project {
+    name: string;
+    duration: string;
+}

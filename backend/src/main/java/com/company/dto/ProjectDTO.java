@@ -11,6 +11,12 @@ public class ProjectDTO {
 
     public ProjectDTO() { super(); }
 
+    public ProjectDTO(String name, String duration){
+        super();
+        this.name = name;
+        this.duration = duration;
+    }
+
     public String getName() {
         return name;
     }

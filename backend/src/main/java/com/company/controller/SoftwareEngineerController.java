@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.ProjectDTO;
 import com.company.dto.SoftwareEngineerDTO;
+import com.company.dto.UserDTO;
 import com.company.mapper.ProjectMapper;
 import com.company.model.SoftwareEngineerProject;
 import com.company.service.ProjectService;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,6 @@ public class SoftwareEngineerController {
     private SoftwareEngineerService softwareEngineerService;
     @Autowired
     private SoftwareEngineerProjectService softwareEngineerProjectService;
-    @Autowired
-    private ProjectService projectService;
     @Autowired
     private ProjectMapper projectMapper;
 
@@ -51,7 +51,7 @@ public class SoftwareEngineerController {
     @GetMapping(value = "/projects/{id}")
     public List<ProjectDTO> getProjects(@PathVariable Integer id){
 
-        List<ProjectDTO> projectsDTO = new ArrayList<>();
+        List<ProjectDTO> projectsDTO;
 
         List<SoftwareEngineerProject> sep = this.softwareEngineerProjectService.getAllById(id);
 
@@ -59,6 +59,7 @@ public class SoftwareEngineerController {
 
         return projectsDTO;
     }
+
 
 
 
