@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdministratorComponent } from './administrator.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
+import { AdministrationComponent } from './pages/administration/administration.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'registration-requests',
         component: RegistrationRequestsComponent,
+      },
+      {
+        path: 'administration',
+        component: AdministrationComponent
       }
     ]
   }

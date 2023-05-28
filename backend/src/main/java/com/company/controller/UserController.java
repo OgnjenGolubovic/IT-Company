@@ -5,6 +5,7 @@ import com.company.config.PermissionUtil;
 import com.company.config.TokenUtils;
 import com.company.config.TwoFactorAuthenticator;
 import com.company.dto.QrCodeDTO;
+import com.company.dto.UserDTO;
 import com.company.dto.UserDataDTO;
 import com.company.model.User;
 import com.company.service.*;
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @RestController
@@ -84,6 +86,15 @@ public class UserController {
         }
         return user;
     }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<UserDTO>> getAllUsers(HttpServletRequest request){
+        List<UserDTO> users = this.userService.getAllUsers();
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
 
 
 

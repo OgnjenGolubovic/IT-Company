@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.company.dto.RegisteredUserDTO;
 //import com.company.mappers.RegisteredUserMapper;
+import com.company.dto.UserDTO;
 import com.company.dto.enums.Status;
 import com.company.model.*;
 import com.company.model.enums.CompanyRole;
@@ -116,6 +117,27 @@ public class UserService {
 		this.registrationRequestRepository.save(registrationRequest);
 
 	}
+
+    public List<UserDTO> getAllUsers() {
+		List<User> users = findAll();
+		List<UserDTO> ret = new ArrayList<>();
+
+		for(User user : users){
+			String cr;
+			if(user.getCompanyRole().equals(CompanyRole.SOFTWARE_ENGINEER)){
+				cr = "Software Engineer";
+			} else if (user.getCompanyRole().equals(CompanyRole.HR)) {
+				cr = "Human Resource Manager";
+			} else if (user.getCompanyRole().equals(CompanyRole.PROJECT_MANAGER)) {
+				cr = "Project Manager";
+			} else { cr = "Administrator"; }
+
+			UserDTO u = new UserDTO(user.getName(), user.getSurname(), cr, user.getPhoneNumber());
+			ret.add(u);
+		}
+
+		return ret;
+    }
 }
 
 

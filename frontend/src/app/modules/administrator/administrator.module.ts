@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { MatCardModule } from '@angular/material/card';
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
+import { AdministrationComponent } from './pages/administration/administration.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
     AdministratorNavComponent,
     PermissionsComponent,
     RegistrationRequestsComponent,
+    AdministrationComponent,
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,10 @@ export class AdministratorNavComponent implements OnInit {
     {
       path: 'registration-requests',
       title: 'Registration requests'
+    },
+    {
+      path: 'administration',
+      title: 'Administration'
     }
   ];
   constructor() { }
