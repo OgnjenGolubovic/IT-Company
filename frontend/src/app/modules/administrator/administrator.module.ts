@@ -19,6 +19,7 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
     RegistrationRequestsComponent,
     AdministrationComponent,
     CreateProjectComponent,
+    AssignWorkersComponent,
   ],
   imports: [
     CommonModule,

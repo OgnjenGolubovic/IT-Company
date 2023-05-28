@@ -25,7 +25,7 @@ public class ProjectService {
         List<ProjectDTO> ret = new ArrayList<>();
 
         for(Project project : temp){
-            ProjectDTO p = new ProjectDTO(project.getName(), project.getDuration());
+            ProjectDTO p = new ProjectDTO(project.getId(), project.getName(), project.getDuration());
             ret.add(p);
         }
         return ret;

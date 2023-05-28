@@ -60,7 +60,12 @@ public class SoftwareEngineerController {
         return projectsDTO;
     }
 
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<SoftwareEngineerDTO>> getAllUsers(HttpServletRequest request){
+        List<SoftwareEngineerDTO> users = this.softwareEngineerService.getAll();
 
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
 
 

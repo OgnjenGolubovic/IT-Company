@@ -5,6 +5,7 @@ import { PermissionsComponent } from './pages/permissions/permissions.component'
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
 import { AdministrationComponent } from './pages/administration/administration.component';
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
+import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'create-project',
         component: CreateProjectComponent
+      },
+      {
+        path: 'assign-workers',
+        component: AssignWorkersComponent
       }
     ]
   }

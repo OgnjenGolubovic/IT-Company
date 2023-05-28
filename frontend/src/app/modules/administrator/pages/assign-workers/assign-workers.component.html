@@ -1,0 +1,36 @@
+<div style="width: 20%; margin-left: 30px; margin-top: 30px;">
+    <mat-card>
+      <mat-card-title>Assign Engineer to project: </mat-card-title>
+  
+      <mat-card-content>
+        <form [formGroup]="assignForm" (ngSubmit)="assign()">
+  
+          <mat-form-field>
+            <mat-label>Software Engineer: </mat-label>
+            <mat-select formControlName="softwareEngineer">
+              <mat-option *ngFor="let softwareEngineer of softwareEngineers" [value]="softwareEngineer.id">
+                {{softwareEngineer.name + " " + softwareEngineer.surname}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Project: </mat-label>
+            <mat-select formControlName="project">
+              <mat-option *ngFor="let project of projects" [value]="project.id">
+                {{project.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <div class="button">
+            <!-- Button is disabled(not clickable), if our RegisterForm contains Validation Errors -->
+            <button type="submit" mat-button [disabled]="!assignForm.valid">Assign</button>
+          </div>
+  
+        </form>
+      </mat-card-content>
+  
+    </mat-card>
+</div>
