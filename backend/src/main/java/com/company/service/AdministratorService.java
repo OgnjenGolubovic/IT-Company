@@ -95,7 +95,7 @@ public class AdministratorService {
 
     public void cancelRegistration(RegisterRequestDTO registerRequestDTO) {
 
-        //Stavljamo status registration requesta na approved
+        //Stavljamo status registration requesta na canceled
         List<RegistrationRequest> registrationRequests;
         registrationRequests = registrationRequestRepository.findAll();
 
@@ -122,6 +122,9 @@ public class AdministratorService {
                 "Verifikacija naloga odbijena",
                 "Korisnik sa email adresom: " + registerRequestDTO.getEmail() + " je odbijen.");
 
+        //Na kraju brisemo usera iz baze posto je odbijen
+        User u = userRepository.findByUsername(registerRequestDTO.getEmail());
+        userRepository.delete(u);
 
     }
 
