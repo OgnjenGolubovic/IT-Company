@@ -1,6 +1,8 @@
 package com.company.controller;
 
+import com.company.dto.AdminDTO;
 import com.company.dto.RegisterRequestDTO;
+import com.company.dto.SoftwareEngineerDTO;
 import com.company.dto.UserDataDTO;
 import com.company.model.RegistrationRequest;
 import com.company.service.AdministratorService;
@@ -44,6 +46,15 @@ public class AdminController {
     public ResponseEntity<RegisterRequestDTO> cancelRegistration(@RequestBody RegisterRequestDTO registerRequestDTO){
 
         this.administratorService.cancelRegistration(registerRequestDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/profileUpdate", consumes = "application/json")
+    @ResponseBody
+    public ResponseEntity<AdminDTO> updateProfile(@RequestBody AdminDTO adminDTO){
+
+        this.administratorService.updateProfile(adminDTO);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

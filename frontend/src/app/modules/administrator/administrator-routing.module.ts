@@ -6,6 +6,7 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
 import { AdministrationComponent } from './pages/administration/administration.component';
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'assign-workers',
         component: AssignWorkersComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ]
   }

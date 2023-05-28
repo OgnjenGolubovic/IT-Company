@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.AdminDTO;
 import com.company.dto.RegisterRequestDTO;
 import com.company.dto.enums.Status;
 import com.company.model.Administrator;
@@ -125,7 +126,18 @@ public class AdministratorService {
     }
 
 
+    public void updateProfile(AdminDTO adminDTO) {
 
+        Administrator a = administratorRepository.findByUsername(adminDTO.getEmail());
 
+        a.setName(adminDTO.getName());
+        a.setSurname(adminDTO.getSurname());
+        a.setState(adminDTO.getState());
+        a.setCity(adminDTO.getCity());
+        a.setStreet(adminDTO.getStreet());
+        a.setStreetNumber(adminDTO.getStreetNumber());
+        a.setPhoneNumber(adminDTO.getPhone());
 
+        administratorRepository.save(a);
+    }
 }

@@ -31,6 +31,10 @@ export class AdministratorNavComponent implements OnInit {
     {
       path: 'assign-workers',
       title: 'Assign workers'
+    },
+    {
+      path: 'profile',
+      title: 'Profile'
     }
   ];
   constructor() { }
