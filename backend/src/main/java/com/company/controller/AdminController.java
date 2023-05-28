@@ -1,5 +1,7 @@
 package com.company.controller;
 
+import com.company.config.TokenUtils;
+import com.company.dto.PasswordDTO;
 import com.company.dto.RegisterRequestDTO;
 import com.company.dto.UserDataDTO;
 import com.company.model.RegistrationRequest;
@@ -15,12 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200")
 @RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
 
     @Autowired
     private AdministratorService administratorService;
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @GetMapping(value = "/regRequestAll")
     public ResponseEntity<List<RegisterRequestDTO>> registerRequests(HttpServletRequest request) {
@@ -47,5 +51,22 @@ public class AdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value="/changedPassword")
+    @ResponseBody
+    public ResponseEntity<?> CheckIfPasswordChanged(HttpServletRequest request){
+        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+        boolean flag = administratorService.checkIfPasswordChanged(username);
+        return new ResponseEntity<>(flag, HttpStatus.OK);
+    }
+    @PostMapping(value = "/changePassword")
+    public ResponseEntity<?> ChangePassword(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO){
+        if(passwordDTO.password == null || passwordDTO.confirmPassword == null ||
+         !passwordDTO.password.equals(passwordDTO.confirmPassword)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+        administratorService.changePassword(username, passwordDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

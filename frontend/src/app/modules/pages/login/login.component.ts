@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
           this.m_Router.navigate(['/code']);
         }
       }, error : error => {
+        this.m_SnackBar.open('Username or Password is wrong','Ok', {
+          duration: 2000
+        })
         //if(this.m_Errors.length != 0) this.m_Errors.pop();
         //this.m_Errors.push(error.error.message);
       }});

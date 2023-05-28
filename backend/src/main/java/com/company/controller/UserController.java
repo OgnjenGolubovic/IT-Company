@@ -12,6 +12,7 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +38,10 @@ public class UserController {
     private SoftwareEngineerService softwareEngineerService;
     @Autowired
     private TwoFactorAuthenticator twoFactorAuthenticator;
-    @Autowired
-    private PermissionUtil permissionUtil;
 
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
     @GetMapping(value = "/data")
     public ResponseEntity<UserDataDTO> getUserData(HttpServletRequest request) {
-       permissionUtil.checkPermission("USERS_R", SecurityContextHolder.getContext().getAuthentication());
        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
        int id = humanResourcesService.findByUsername(username);
        if (id != 0) {
