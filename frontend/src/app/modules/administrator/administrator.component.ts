@@ -33,18 +33,14 @@ export class AdministratorComponent implements OnInit {
     private m_AuthService: AuthService, private m_Router: Router, private adminService : AdminService) { }
 
   ngOnInit(): void {
-    this.getIfChanged().subscribe();
-  }
-
-  getIfChanged():Observable<any> {
-    return this.adminService.getIfPasswordChanged().pipe(tap(res =>{
+    this.adminService.getIfPasswordChanged().pipe(tap(res =>{
       this.visible = !res;
-    }),switchMap(_ => this.initate()));    
+    }),switchMap(_ => this.initate())).subscribe();    
   }
   initate(): Observable<any>{
     if(this.visible){
       const dialogRef = this.dialog.open(ChangePasswordDialog, {
-        data: {new: this.new, password: this.confirm},
+        data: {new: this.new, confirm: this.confirm},
       });
       dialogRef.disableClose = true;
       return dialogRef.afterClosed().pipe(map(result  => {
@@ -69,6 +65,10 @@ export class AdministratorComponent implements OnInit {
   }
 }
 
+@Component({
+  selector: 'change-password',
+  templateUrl: 'change-password.html',
+})
 export class ChangePasswordDialog {
   flag: boolean = true;
   constructor(

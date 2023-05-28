@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdministratorRoutingModule } from './administrator-routing.module';
-import { AdministratorComponent } from './administrator.component';
+import { AdministratorComponent, ChangePasswordDialog } from './administrator.component';
 import { AdministratorNavComponent } from './pages/nav/administrator-nav.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatListModule } from '@angular/material/list';
@@ -23,6 +23,7 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
     PermissionsComponent,
     AddPermissionDialog,
     DeletePermissionDialog,
+    ChangePasswordDialog,
     RegistrationRequestsComponent,
   ],
   imports: [

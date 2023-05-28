@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.PasswordDTO;
 import com.company.dto.RegisterRequestDTO;
 import com.company.dto.enums.Status;
 import com.company.model.Administrator;
@@ -12,6 +13,8 @@ import com.company.repository.RegistrationRequestRepository;
 import com.company.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -31,6 +34,7 @@ public class AdministratorService {
     private UserRepository userRepository;
     @Autowired
     private EmailBlacklistRepository emailBlacklistRepository;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public int findByUsername(String username) throws UsernameNotFoundException {
         Administrator administrator = administratorRepository.findByUsername(username);
@@ -123,9 +127,13 @@ public class AdministratorService {
 
 
     }
-
-
-
-
-
+    public boolean checkIfPasswordChanged(String username){
+        return administratorRepository.findByUsername(username).isPasswordChanged();
+    }
+    public void changePassword(String username, PasswordDTO password){
+        Administrator administrator = administratorRepository.findByUsername(username);
+        administrator.setPassword(passwordEncoder.encode(password.password));
+        administrator.setPasswordChanged(true);
+        administratorRepository.save(administrator);
+    }
 }
