@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, exhaustMap, filter, Observable, switchMap,
 import { environment } from "src/environments/environment";
 import { UserDataService } from "./log-user-data.service";
 import { AuthService } from "./log-auth.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -11,7 +12,8 @@ export class AuthInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   
-  constructor(private m_UserDataService: UserDataService, private m_AuthService: AuthService){}
+  constructor(private m_UserDataService: UserDataService, private m_AuthService: AuthService, 
+    private m_Router: Router){}
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.m_UserDataService.m_Token$.pipe(
@@ -61,6 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.isRefreshing = false;
             
             this.m_AuthService.logout();
+            this.m_Router.navigate(['/login']);
             return throwError(err);
           })
         );

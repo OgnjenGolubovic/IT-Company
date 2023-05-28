@@ -14,10 +14,10 @@ INSERT INTO USER_ROLE (user_id, role_id) values (2, 2);
 INSERT INTO USER_ROLE (user_id, role_id) values (3, 3);
 INSERT INTO USER_ROLE (user_id, role_id) values (4, 4);
 
-insert into permissions (name) values ('USERS_C');
-insert into permissions (name) values ('USERS_R');
-insert into permissions (name) values ('USERS_U');
-insert into permissions (name) values ('USERS_D');
+insert into permissions (name) values ('USER_CREATE_PRIVILEGE');
+insert into permissions (name) values ('USER_READ_PRIVILEGE');
+insert into permissions (name) values ('USER_UPDATE_PRIVILEGE');
+insert into permissions (name) values ('USER_DELETE_PRIVILEGE');
 
 insert into role_permission (role_id, permission_id) values (1, 2)
 insert into role_permission (role_id, permission_id) values (2, 2)

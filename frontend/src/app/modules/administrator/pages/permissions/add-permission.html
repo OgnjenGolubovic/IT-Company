@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Check to Add new Permissions</h1>
+<div mat-dialog-content>
+    <ul *ngFor="let item of data">
+        <mat-label>
+            <input type="checkbox" [checked]="isSelected(item)" (change)="toggleSelection(item)">
+            {{ item.name }}
+        </mat-label>
+    </ul>
+</div>
+<div mat-dialog-actions>
+    <button mat-button cdkFocusInitial [mat-dialog-close]="selectedPermissions">Add</button>
+</div>

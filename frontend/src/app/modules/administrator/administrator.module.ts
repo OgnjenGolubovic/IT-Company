@@ -12,7 +12,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { PermissionsComponent } from './pages/permissions/permissions.component';
+import { AddPermissionDialog, DeletePermissionDialog, PermissionsComponent } from './pages/permissions/permissions.component';
 import { MatCardModule } from '@angular/material/card';
 import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
 
@@ -21,6 +21,8 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
     AdministratorComponent,
     AdministratorNavComponent,
     PermissionsComponent,
+    AddPermissionDialog,
+    DeletePermissionDialog,
     RegistrationRequestsComponent,
   ],
   imports: [
