@@ -18,8 +18,10 @@ public class SoftwareEngineerDTO {
 
     public SoftwareEngineerDTO(){ super(); }
 
-    public SoftwareEngineerDTO(String email, String name, String surname, String state, String city,
+    public SoftwareEngineerDTO(Integer id, String email, String name, String surname, String state, String city,
                                String street, String streetNumber, String phone, String skills, File cv) {
+        super();
+        this.id = id;
         this.email = email;
         this.name = name;
         this.surname = surname;

@@ -4,7 +4,7 @@ import com.company.model.Project;
 
 public class ProjectDTO {
 
-    private Integer id;
+    private Integer pr_id;
     private String name;
     private String duration;
     private Integer user_id;
@@ -16,7 +16,7 @@ public class ProjectDTO {
         super();
         this.name = name;
         this.duration = duration;
-        this.id = id;
+        this.pr_id = id;
     }
 
     public String getName() {
@@ -49,5 +49,13 @@ public class ProjectDTO {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public Integer getPr_id() {
+        return pr_id;
+    }
+
+    public void setPr_id(Integer pr_id) {
+        this.pr_id = pr_id;
     }
 }

@@ -5,6 +5,11 @@ export interface SoftwareEngineer {
 }
 
 export interface Project {
-    id: number;
+    pr_id: number;
     name: String;
 }
+
+export interface RegisterResponse {
+    status: number;
+    message: string;
+  }

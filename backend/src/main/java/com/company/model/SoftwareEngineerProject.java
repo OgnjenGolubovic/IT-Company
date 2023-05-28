@@ -23,6 +23,14 @@ public class SoftwareEngineerProject {
 
     public SoftwareEngineerProject () { super(); }
 
+    public SoftwareEngineerProject(Integer seId, Integer prId) {
+        super();
+        this.softwareEngineer = new SoftwareEngineer();
+        this.softwareEngineer.setId(seId);
+        this.project = new Project();
+        this.project.setId(prId);
+    }
+
     public Integer getId() {
         return id;
     }

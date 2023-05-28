@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.ProjectDTO;
 import com.company.dto.SoftwareEngineerDTO;
+import com.company.dto.SoftwareEngineerProjectDTO;
 import com.company.dto.UserDTO;
 import com.company.mapper.ProjectMapper;
 import com.company.model.SoftwareEngineerProject;
@@ -66,6 +67,13 @@ public class SoftwareEngineerController {
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/assign")
+    public ResponseEntity<SoftwareEngineerProjectDTO> assign(@RequestBody SoftwareEngineerProjectDTO softwareEngineerProjectDTO){
+        softwareEngineerProjectService.assign(softwareEngineerProjectDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 
 
 

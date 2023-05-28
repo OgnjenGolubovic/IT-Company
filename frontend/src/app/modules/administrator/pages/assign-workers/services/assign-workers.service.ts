@@ -1,8 +1,8 @@
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Observable } from "rxjs";
-import { Project, SoftwareEngineer } from "../interfaces/assign-workers.interface";
+import { Observable, tap } from "rxjs";
+import { Project, RegisterResponse, SoftwareEngineer } from "../interfaces/assign-workers.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +24,16 @@ import { Project, SoftwareEngineer } from "../interfaces/assign-workers.interfac
         getAllProjects() : Observable<Project[]>{
             return this.http.get<Project[]>(this.apiHost + 'projects/all', {headers: this.headers});
         }
+
+        assign(registerRequest: any): Observable<RegisterResponse> {
+    
+            return this.http.post<RegisterResponse>(this.apiHost + 'softwareEngineer/assign', registerRequest, {headers: this.headers}).pipe(
+              tap((res: RegisterResponse) => this.snackbar.open(`Engineer assigned to project successfully`, 'Close', {
+                duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+              }))
+            )
+          }
+
 
 
   }

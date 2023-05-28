@@ -32,7 +32,10 @@ export class AssignWorkersComponent implements OnInit {
   }
 
   assign(){
-    
+    if (!this.assignForm.valid) {
+      return;
+    }
+    this._assignWorkersService.assign(this.assignForm.value).pipe().subscribe();
   }
 
 

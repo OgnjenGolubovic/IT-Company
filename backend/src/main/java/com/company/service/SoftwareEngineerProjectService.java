@@ -1,6 +1,7 @@
 package com.company.service;
 
 import com.company.dto.ProjectDTO;
+import com.company.dto.SoftwareEngineerProjectDTO;
 import com.company.model.SoftwareEngineerProject;
 import com.company.repository.SoftwareEngineerProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,11 @@ public class SoftwareEngineerProjectService {
     }
 
 
+    public void assign(SoftwareEngineerProjectDTO softwareEngineerProjectDTO) {
 
+        SoftwareEngineerProject sep = new SoftwareEngineerProject(softwareEngineerProjectDTO.getSoftwareEngineer(), softwareEngineerProjectDTO.getProject());
+        this.softwareEngineerProjectRepository.save(sep);
+
+
+    }
 }
