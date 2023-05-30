@@ -1,5 +1,7 @@
 package com.company.dto;
 
+import com.company.model.enums.CompanyRole;
+
 import java.io.File;
 
 public class SoftwareEngineerDTO {
@@ -39,6 +41,13 @@ public class SoftwareEngineerDTO {
         this.id = id;
         this.name = name;
         this.surname = surname;
+    }
+
+    public SoftwareEngineerDTO(String name, String surname, String phoneNumber) {
+        super();
+        this.name = name;
+        this.surname = surname;
+        this.phone = phoneNumber;
     }
 
     public String getEmail() {

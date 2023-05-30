@@ -35,6 +35,10 @@ export class AdministratorNavComponent implements OnInit {
     {
       path: 'profile',
       title: 'Profile'
+    },
+    {
+      path: 'projects',
+      title: 'Projects'
     }
   ];
   constructor() { }

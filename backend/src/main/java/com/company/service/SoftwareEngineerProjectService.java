@@ -1,9 +1,11 @@
 package com.company.service;
 
 import com.company.dto.ProjectDTO;
+import com.company.dto.SoftwareEngineerDTO;
 import com.company.dto.SoftwareEngineerProjectDTO;
 import com.company.model.SoftwareEngineerProject;
 import com.company.repository.SoftwareEngineerProjectRepository;
+import com.company.repository.SoftwareEngineerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class SoftwareEngineerProjectService {
 
     @Autowired
     private SoftwareEngineerProjectRepository softwareEngineerProjectRepository;
+
+    @Autowired
+    private SoftwareEngineerRepository softwareEngineerRepository;
 
 
     public List<SoftwareEngineerProject> getAllById(Integer id){
@@ -55,5 +60,18 @@ public class SoftwareEngineerProjectService {
         this.softwareEngineerProjectRepository.save(sep);
 
 
+    }
+
+    public List<Integer> getUsersIdsByProjectsId(Integer id) {
+
+        List<SoftwareEngineerProject> temp = softwareEngineerProjectRepository.findAll();
+        List<Integer> ret = new ArrayList<>();
+
+        for(SoftwareEngineerProject sep : temp){
+            if(sep.getProject().getId() == id){
+                ret.add(sep.getSoftwareEngineer().getId());
+            }
+        }
+        return ret;
     }
 }

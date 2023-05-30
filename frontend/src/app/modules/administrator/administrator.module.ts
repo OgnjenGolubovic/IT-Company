@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CreateProjectComponent,
     AssignWorkersComponent,
     ProfileComponent,
+    ProjectsComponent,
   ],
   imports: [
     CommonModule,
