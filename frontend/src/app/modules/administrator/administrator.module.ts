@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
+import { AdminRegisterComponent } from './pages/admin-register/admin-register.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ProjectsComponent } from './pages/projects/projects.component';
     AssignWorkersComponent,
     ProfileComponent,
     ProjectsComponent,
+    AdminRegisterComponent,
   ],
   imports: [
     CommonModule,
