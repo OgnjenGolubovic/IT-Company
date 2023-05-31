@@ -68,6 +68,13 @@ export class AuthService {
       }),switchMap(_ => this.getUserData())
     );
   }
+  refreshTokenInterceptor(token: string) {
+    return this.m_Http.post(`${environment.hospitalApiUrl}/auth/refresh`, token).pipe(
+      tap((res: any) => {
+        this.m_UserDataService.setToken = res['accessToken'];
+      })
+    );
+  }
   logout(): void {
     this.m_UserDataService.setToken = null;
     this.m_UserDataService.setUserData = null;
