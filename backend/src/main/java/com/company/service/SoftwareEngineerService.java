@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dto.SoftwareEngineerDTO;
 import com.company.model.SoftwareEngineer;
+import com.company.model.enums.CompanyRole;
 import com.company.repository.SoftwareEngineerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,6 +54,20 @@ public class SoftwareEngineerService {
             SoftwareEngineerDTO seDTO = new SoftwareEngineerDTO(s.getId(), s.getName(), s.getSurname());
             ret.add(seDTO);
         }
+        return ret;
+    }
+
+    public List<SoftwareEngineerDTO> findByIds(List<Integer> usersIds) {
+
+        List<SoftwareEngineer> temp = this.softwareEngineerRepository.findAllById(usersIds);
+
+        List<SoftwareEngineerDTO> ret = new ArrayList<>();
+
+        for(SoftwareEngineer se : temp){
+            SoftwareEngineerDTO seDTO = new SoftwareEngineerDTO(se.getName(), se.getSurname(), se.getPhoneNumber());
+            ret.add(seDTO);
+        }
+
         return ret;
     }
 }

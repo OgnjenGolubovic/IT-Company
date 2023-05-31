@@ -4,11 +4,13 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.company.model.User;
+import org.springframework.core.env.Environment;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -17,14 +19,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 // Utility klasa za rad sa JSON Web Tokenima
 @Component
 public class TokenUtils {
+	@Autowired
+	private Environment environment;
 
 	// Izdavac tokena
 	@Value("spring-security-example")
 	private String APP_NAME;
-
-	// Tajna koju samo backend aplikacija treba da zna kako bi mogla da generise i proveri JWT https://jwt.io/
-	@Value("somesecret")
-	public String SECRET;
 
 	// Period vazenja tokena - 15 minuta
 	@Value("900000")
@@ -68,7 +68,7 @@ public class TokenUtils {
 				.setAudience(generateAudience())
 				.setIssuedAt(new Date())
 				.setExpiration(generateExpirationDate(EXPIRES_IN))
-				.signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+				.signWith(SIGNATURE_ALGORITHM, environment.getProperty("SecretKey")).compact();
 		
 
 		// moguce je postavljanje proizvoljnih podataka u telo JWT tokena pozivom funkcije .claim("key", value), npr. .claim("role", user.getRole())
@@ -88,7 +88,7 @@ public class TokenUtils {
 				.setAudience(generateAudience())
 				.setIssuedAt(new Date())
 				.setExpiration(generateExpirationDate(EXPIRES_IN_REFRESH))
-				.signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+				.signWith(SIGNATURE_ALGORITHM, environment.getProperty("SecretKey")).compact();
 
 
 	}
@@ -261,7 +261,7 @@ public class TokenUtils {
 		Claims claims;
 		try {
 			claims = Jwts.parser()
-					.setSigningKey(SECRET)
+					.setSigningKey(environment.getProperty("SecretKey"))
 					.parseClaimsJws(token)
 					.getBody();
 		} catch (ExpiredJwtException ex) {

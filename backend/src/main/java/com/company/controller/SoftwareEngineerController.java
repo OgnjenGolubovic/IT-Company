@@ -75,7 +75,16 @@ public class SoftwareEngineerController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasPermission(#id, 'SoftwareEngineer', 'read')")
+    @GetMapping(value = "/get/{id}")
+    public ResponseEntity<List<SoftwareEngineerDTO>> getUsersById(@PathVariable Integer id){
 
+        List<Integer> usersIds = this.softwareEngineerProjectService.getUsersIdsByProjectsId(id);
+
+        List<SoftwareEngineerDTO> users = this.softwareEngineerService.findByIds(usersIds);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
 
 
