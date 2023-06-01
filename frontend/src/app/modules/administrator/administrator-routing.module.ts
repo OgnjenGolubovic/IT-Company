@@ -7,6 +7,8 @@ import { AdministrationComponent } from './pages/administration/administration.c
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { AssignWorkersComponent } from './pages/assign-workers/assign-workers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { AdminRegisterComponent } from './pages/admin-register/admin-register.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,14 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent
+      },
+      {
+        path: 'projects',
+        component: ProjectsComponent
+      },
+      {
+        path: 'admin-register',
+        component: AdminRegisterComponent
       }
     ]
   }

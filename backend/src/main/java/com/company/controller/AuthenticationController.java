@@ -159,6 +159,30 @@ public class AuthenticationController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasPermission(#id, 'Administrator', 'create')")
+	@PostMapping("/adminRegistration")
+	public ResponseEntity<RegisteredUserDTO> addAdministrator(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+
+		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
+
+		if (existUser != null) {
+			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
+		}
+
+		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
+		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
+
+		userService.registerAdmin(registeredUserDTO);
+		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
+		//System.out.println(registeredUserDTO.getEmail());
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+
+
+
+
 	@GetMapping("/verify-email/{email}")
 	public Boolean verifyEmail(@PathVariable String email){
 		User user = userService.findByUsername(email);

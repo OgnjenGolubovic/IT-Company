@@ -29,6 +29,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         return next.handle(authReq).pipe(
           catchError(error => {
+            if(error.url.includes('https://localhost:8084/auth/refresh')){
+              this.isRefreshing = false;
+              this.m_AuthService.logout();
+              this.m_Router.navigate(['/login']);   
+            }
             if (
               error instanceof HttpErrorResponse &&
               !authReq.url.includes('auth/register') &&
@@ -51,13 +56,11 @@ export class AuthInterceptor implements HttpInterceptor {
       const token = this.m_UserDataService.getToken();
 
       if (token)
-        return this.m_AuthService.refreshToken(token).pipe(
-          switchMap((token: any) => {
+        return this.m_AuthService.refreshTokenInterceptor(token).pipe(
+          switchMap((res: any) => {
             this.isRefreshing = false;
-
-            this.m_UserDataService.setToken = token;
-            
-            return next.handle(this.addTokenHeader(request, token));
+            this.refreshTokenSubject.next(res['accessToken']);
+            return next.handle(this.addTokenHeader(request, res['accessToken']));
           }),
           catchError((err) => {
             this.isRefreshing = false;
