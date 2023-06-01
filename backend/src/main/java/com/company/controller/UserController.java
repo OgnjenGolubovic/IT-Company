@@ -1,34 +1,28 @@
 package com.company.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import com.company.config.PermissionUtil;
 import com.company.config.TokenUtils;
+import com.company.config.TwoFactorAuthenticator;
+import com.company.dto.QrCodeDTO;
+import com.company.dto.UserDTO;
 import com.company.dto.UserDataDTO;
 import com.company.model.User;
 import com.company.service.*;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "api/users")
+@RequestMapping(value = "users")
 @CrossOrigin
 public class UserController {
 
@@ -44,27 +38,67 @@ public class UserController {
     private AdministratorService administratorService;
     @Autowired
     private SoftwareEngineerService softwareEngineerService;
+    @Autowired
+    private TwoFactorAuthenticator twoFactorAuthenticator;
 
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
     @GetMapping(value = "/data")
     public ResponseEntity<UserDataDTO> getUserData(HttpServletRequest request) {
-
-        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
-        int id = humanResourcesService.findByUsername(username);
-        if(id != 0){
-            return new ResponseEntity<>(new UserDataDTO(id, 2),HttpStatus.OK);
-        }
-        id = softwareEngineerService.findByUsername(username);
-        if(id != 0){
-            return new ResponseEntity<>(new UserDataDTO(id, 1),HttpStatus.OK);
-        }
-        id = projectManagerService.findByUsername(username);
-        if(id != 0){
-            return new ResponseEntity<>(new UserDataDTO(id, 3),HttpStatus.OK);
-        }
-        id = administratorService.findByUsername(username);
-        if(id != 0){
-            return new ResponseEntity<>(new UserDataDTO(id, 4),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+       int id = humanResourcesService.findByUsername(username);
+       if (id != 0) {
+           return new ResponseEntity<>(new UserDataDTO(id, 2), HttpStatus.OK);
+       }
+       id = softwareEngineerService.findByUsername(username);
+       if (id != 0) {
+           return new ResponseEntity<>(new UserDataDTO(id, 1), HttpStatus.OK);
+       }
+       id = projectManagerService.findByUsername(username);
+       if (id != 0) {
+           return new ResponseEntity<>(new UserDataDTO(id, 3), HttpStatus.OK);
+       }
+       id = administratorService.findByUsername(username);
+       if (id != 0) {
+           return new ResponseEntity<>(new UserDataDTO(id, 4), HttpStatus.OK);
+       }
+       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
+    @GetMapping("/qrcode")
+    public ResponseEntity<QrCodeDTO> qrCodeGenerator(HttpServletRequest request) {
+        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+        GoogleAuthenticatorKey secretKey = twoFactorAuthenticator.generateSecretKey();
+        userService.setSecretKeyByUsername(username, secretKey.getKey());
+        return new ResponseEntity<QrCodeDTO>(new QrCodeDTO(secretKey.getKey()), HttpStatus.OK);
+    }
+    @PreAuthorize("hasPermission(#id, 'User', 'update')")
+    @GetMapping("/set2FA")
+    public ResponseEntity<?> set2FA(HttpServletRequest request) {
+        String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+        userService.setTFAByUsername(username);
+        return ResponseEntity.ok("");
+    }
+
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Integer id){
+        User user = userService.findById(id);
+        if (user == null) {
+            return null;
+        }
+        return user;
+    }
+    @PreAuthorize("hasPermission(#id, 'User', 'read')")
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<UserDTO>> getAllUsers(HttpServletRequest request){
+        List<UserDTO> users = this.userService.getAllUsers();
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
+
+
+
+
 }

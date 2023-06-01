@@ -1,0 +1,20 @@
+<div>
+    <ul *ngFor="let role of roles">
+        <mat-card class="example-card" >
+            <mat-card-content>
+            <br>
+            <p>{{ role.name }}</p>
+            <mat-divider></mat-divider>
+            <p>Permissions:</p>
+            <ul *ngFor="let rolePermission of role.permissions">
+                <p>- {{ rolePermission.name }}</p>
+            </ul>
+            <mat-divider></mat-divider>
+            </mat-card-content>
+            <mat-card-actions>
+            <button mat-button (click)="addPermission(role)">Add</button>
+            <button mat-button (click)="deletePermission(role)">Delete</button>
+            </mat-card-actions>
+        </mat-card>
+    </ul>
+</div>

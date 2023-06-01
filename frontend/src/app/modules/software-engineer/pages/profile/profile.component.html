@@ -1,0 +1,17 @@
+<div style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">
+    <h1>Software Engineer profile:</h1>
+</div>
+
+<div style="margin-left: 20px;">
+    <input type="text" [(ngModel)]="user.email" placeholder="Email" [disabled]="true">
+    <input type="text" [(ngModel)]="user.name" placeholder="Name">
+    <input type="text" [(ngModel)]="user.surname" placeholder="Surname">
+    <input type="text" [(ngModel)]="user.state" placeholder="State">
+    <input type="text" [(ngModel)]="user.city" placeholder="City">
+    <input type="text" [(ngModel)]="user.street" placeholder="Street">
+    <input type="text" [(ngModel)]="user.streetNumber" placeholder="Street Number">
+    <input type="text" [(ngModel)]="user.phone" placeholder="Phone Number">
+    <input type="text" [(ngModel)]="user.skills" placeholder="Skils">
+    <input type="file" class="file-upload" [(ngModel)]="user.cv" placeholder="CV korisnika">
+    <button (click)="submit()">Submit</button>
+</div>

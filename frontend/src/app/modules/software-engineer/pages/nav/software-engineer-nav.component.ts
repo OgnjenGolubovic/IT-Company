@@ -16,6 +16,19 @@ export interface NavRoute {
 export class SoftwareEngineerNavComponent implements OnInit {
 
   m_Routes: NavRoute[] = [
+    {
+      path: 'qr-code',
+      title: 'qr-code'
+    },
+    {
+      path: 'profile',
+      title: 'Profile'
+    },
+    {
+      path: 'projects',
+      title: 'Projects'
+    }
+
   ];
   constructor() { 
   }

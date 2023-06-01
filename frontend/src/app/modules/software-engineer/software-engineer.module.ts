@@ -9,12 +9,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 
 @NgModule({
   declarations: [
     SoftwareEngineerNavComponent,
-    SoftwareEngineerComponent
+    SoftwareEngineerComponent,
+    ProfileComponent,
+    ProjectsComponent
   ],
   imports: [
     CommonModule,

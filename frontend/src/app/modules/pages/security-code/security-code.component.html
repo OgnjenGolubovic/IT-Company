@@ -1,0 +1,9 @@
+<div class="container">
+    <h1>Two-Factor Authentication</h1>
+    <form (ngSubmit)="submitForm()">
+      <label for="code">Security Code:</label>
+      <input type="text" id="code" name="code" required [(ngModel)]="code.securityCode">
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  

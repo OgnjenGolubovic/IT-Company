@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
-import com.company.model.enums.Gender;
+import com.company.model.enums.CompanyRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,7 +22,8 @@ public class User implements Serializable, UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	//username je email
 	@Column(nullable = true)
     private String username;
 	
@@ -34,43 +35,71 @@ public class User implements Serializable, UserDetails{
 	
 	@Column(nullable = true)
 	private String surname;
-	
+
 	@Column(nullable = true)
-	private Gender gender;
-	
+	private String state;
+
 	@Column(nullable = true)
-	private Integer jmbg;
-	
+	private String city;
+
+	@Column(nullable = true)
+	private String street;
+
+	@Column(nullable = true)
+	private String streetNumber;
+
+	@Column(nullable = true)
+	private String phoneNumber;
+
+	@Column(nullable = true)
+	private CompanyRole companyRole;
+
 	@Column(nullable = true)
     private boolean enabled;
 	
 	@Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-	@Column(nullable = true)
-	private String phoneNumber;
+    @Column
+    private String secretKey;
 
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
-	
+
+	@Column(nullable = true)
+	private boolean tfa;
+
 	public User() {
 		super();
 	}
 	
 	
-	public User(Integer id, String username, String password, String name, String surname, Gender gender, int jmbg, String phoneNumber) {
+	public User(Integer id, String username, String password, String name, String surname, String phoneNumber) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
-		this.gender = gender;
-		this.jmbg = jmbg;
 		this.phoneNumber = phoneNumber;
+	}
+
+	public User(String email, String password, String name, String surname, String state,
+				String city, String street, String number, String phone, CompanyRole companyRole) {
+		super();
+		this.username = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.state = state;
+		this.city = city;
+		this.street = street;
+		this.streetNumber = number;
+		this.phoneNumber = phone;
+		this.companyRole = companyRole;
 	}
 
 	public int getId() {
@@ -84,12 +113,15 @@ public class User implements Serializable, UserDetails{
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getSurname() {
 		return surname;
 	}
+
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
@@ -103,7 +135,46 @@ public class User implements Serializable, UserDetails{
         this.username = username;
     }
 
-    
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public CompanyRole getCompanyRole() {
+		return companyRole;
+	}
+
+	public void setCompanyRole(CompanyRole companyRole) {
+		this.companyRole = companyRole;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -127,31 +198,13 @@ public class User implements Serializable, UserDetails{
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Integer getJmbg() {
-		return jmbg;
-	}
-	public void setJmbg(int jmbg) {
-		this.jmbg = jmbg;
-	}
-	public Gender getGender() {
-		return gender;
-	}
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	
+
 	public void setRoles(List<Role> roles) {
 	    this.roles = roles;
 	}
 	    
 	public List<Role> getRoles() {
 	    return roles;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", surname="
-				+ surname + ", gender=" + gender + ", jmbg=" + jmbg + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 	@Override
@@ -185,5 +238,21 @@ public class User implements Serializable, UserDetails{
 	
 	public void setEnabled(boolean enabled) {
 	    this.enabled = enabled;
+	}
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+	public boolean isTfa() {
+		return tfa;
+	}
+
+	public void setTfa(boolean tfa) {
+		this.tfa = tfa;
 	}
 }

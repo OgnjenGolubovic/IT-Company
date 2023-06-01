@@ -14,12 +14,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { QrCodeComponent } from './qr-code/qr-code.component';
+import { QRCodeModule  } from 'angularx-qrcode';
+import { SecurityCodeComponent } from './security-code/security-code.component';
+import { RegisterComponent } from './register/register.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    PageNotFoundComponent,
+    QrCodeComponent,
+    SecurityCodeComponent,
+    RegisterComponent
   ],
   imports: [
+    QRCodeModule,
     FormsModule,
     CommonModule,
     AppRoutingModule,
@@ -34,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatRadioModule,
     MatSortModule,
+    MatSelectModule,
     MatSnackBarModule
   ]
 })
