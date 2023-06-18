@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.company.config.*;
@@ -55,25 +56,20 @@ public class AuthenticationController {
 	private EmailSenderService emailSenderService;
 	@Autowired
 	private EmailBlacklistRepository emailBlacklistRepository;
-	
+
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
 	@PostMapping("/login")
 	public ResponseEntity<UserTokenState> createAuthenticationToken(
-			@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
-		// Ukoliko kredencijali nisu ispravni, logovanje nece biti uspesno, desice se
-		// AuthenticationException
+			@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
-			// Ukoliko je autentifikacija uspesna, ubaci korisnika u trenutni security
-			// kontekst
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-			// Kreiraj token za tog korisnika
 			User user = (User) authentication.getPrincipal();
-
+			//userService.decryptUser(user);
 			String jwt = tokenUtils.generateToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
 			int expiresIn = tokenUtils.getExpiredIn();
 
@@ -101,7 +97,9 @@ public class AuthenticationController {
         String refreshJwt = tokenUtils.generateRefreshToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
         int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
 
-        if (twoFactorAuthenticator.verifyCode(user.getSecretKey(), Integer.parseInt(securityCodeDTO.securityCode))) {
+		String secretKey = userService.getSecretKey(securityCodeDTO.username);
+
+        if (twoFactorAuthenticator.verifyCode(secretKey, Integer.parseInt(securityCodeDTO.securityCode))) {
             return ResponseEntity.ok(new UserTokenState(jwt, refreshJwt, expiresIn, expiresInRefresh));
         } else {
             return new ResponseEntity<UserTokenState>(new UserTokenState(), HttpStatus.BAD_REQUEST);
@@ -150,11 +148,11 @@ public class AuthenticationController {
 		//Address address = new Address(registeredUserDTO.getState(), registeredUserDTO.getCity(), registeredUserDTO.getStreet(), registeredUserDTO.getNumber());
 		registeredUserDTO.setPassword(passwordEncoder.encode(registeredUserDTO.getPassword()));
 
+		userService.createRegisterRequest(registeredUserDTO);
+
 		userService.registerUser(registeredUserDTO);
 		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
 		//System.out.println(registeredUserDTO.getEmail());
-
-		userService.createRegisterRequest(registeredUserDTO);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -178,10 +176,6 @@ public class AuthenticationController {
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-
-
-
-
 
 	@GetMapping("/verify-email/{email}")
 	public Boolean verifyEmail(@PathVariable String email){

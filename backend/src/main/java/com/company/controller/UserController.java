@@ -67,9 +67,14 @@ public class UserController {
     @GetMapping("/qrcode")
     public ResponseEntity<QrCodeDTO> qrCodeGenerator(HttpServletRequest request) {
         String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
-        GoogleAuthenticatorKey secretKey = twoFactorAuthenticator.generateSecretKey();
-        userService.setSecretKeyByUsername(username, secretKey.getKey());
-        return new ResponseEntity<QrCodeDTO>(new QrCodeDTO(secretKey.getKey()), HttpStatus.OK);
+        User user = userService.findByUsername(username);
+        if(!user.isTfa()){
+            GoogleAuthenticatorKey secretKey = twoFactorAuthenticator.generateSecretKey();
+            userService.setSecretKeyByUsername(user, secretKey.getKey());
+            return new ResponseEntity<QrCodeDTO>(new QrCodeDTO(secretKey.getKey()), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<QrCodeDTO>(new QrCodeDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
     @PreAuthorize("hasPermission(#id, 'User', 'update')")
     @GetMapping("/set2FA")

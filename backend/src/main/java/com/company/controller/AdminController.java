@@ -73,7 +73,7 @@ public class AdminController {
     @PreAuthorize("hasPermission(#id, 'Administrator', 'update')")
     @PostMapping(value = "/changePassword")
     public ResponseEntity<?> ChangePassword(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO){
-        if(passwordDTO.password == null || passwordDTO.confirmPassword == null ||
+        if(passwordDTO.password == null ||
          !passwordDTO.password.equals(passwordDTO.confirmPassword)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
