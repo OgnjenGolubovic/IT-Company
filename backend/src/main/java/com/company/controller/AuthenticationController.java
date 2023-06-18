@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.company.config.*;
@@ -25,6 +26,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import com.company.model.User;
 import com.company.service.UserService;
@@ -55,12 +59,14 @@ public class AuthenticationController {
 	private EmailSenderService emailSenderService;
 	@Autowired
 	private EmailBlacklistRepository emailBlacklistRepository;
-	
+
+	private final static Logger logger = LogManager.getLogger(AuthenticationController.class);
+
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
 	@PostMapping("/login")
 	public ResponseEntity<UserTokenState> createAuthenticationToken(
-			@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
+			@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletRequest request, HttpServletResponse response) {
 		// Ukoliko kredencijali nisu ispravni, logovanje nece biti uspesno, desice se
 		// AuthenticationException
 		try {
@@ -80,19 +86,43 @@ public class AuthenticationController {
 			String refreshJwt = tokenUtils.generateRefreshToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
 			int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
 
+			String address = request.getHeader("x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("http-x-forwarded-for");
+				if (address == null || address.length() == 0) {
+					address = request.getHeader("remote-addr");
+					if (address == null || address.length() == 0) {
+						address = request.getRemoteAddr();
+					}
+				}
+			}
+			logger.info("User successfully logged in from Host:"+ address +", Port:"+request.getRemotePort());
+
 			if (!user.isTfa()) {
 				return ResponseEntity.ok(new UserTokenState(jwt, refreshJwt, expiresIn, expiresInRefresh));
 			} else {
 				return new ResponseEntity<UserTokenState>(new UserTokenState(), HttpStatus.OK);
 			}
 		}catch(BadCredentialsException ex) {
+			String address = request.getHeader("x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("http-x-forwarded-for");
+				if (address == null || address.length() == 0) {
+					address = request.getHeader("remote-addr");
+					if (address == null || address.length() == 0) {
+						address = request.getRemoteAddr();
+					}
+				}
+			}
+			logger.warn("User unsuccessfully tried to login in from Host:"+ address +", Port:"+request.getRemotePort() + " - Bad Credentials");
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 
     @PostMapping("/qrcode")
     public ResponseEntity<UserTokenState> refresh(
-            @RequestBody SecurityCodeDTO securityCodeDTO) {
+            @RequestBody SecurityCodeDTO securityCodeDTO,
+			HttpServletRequest request) {
         User user = this.userService.findByUsername(securityCodeDTO.username);
 
         String jwt = tokenUtils.generateToken(user.getId(), user.getUsername(), String.valueOf(user.getRoles().get(0)));
@@ -102,6 +132,17 @@ public class AuthenticationController {
         int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
 
         if (twoFactorAuthenticator.verifyCode(user.getSecretKey(), Integer.parseInt(securityCodeDTO.securityCode))) {
+			String address = request.getHeader("x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("http-x-forwarded-for");
+				if (address == null || address.length() == 0) {
+					address = request.getHeader("remote-addr");
+					if (address == null || address.length() == 0) {
+						address = request.getRemoteAddr();
+					}
+				}
+			}
+			logger.info("User successfully logged in with qrcode from Host:"+ address +", Port:"+request.getRemotePort());
             return ResponseEntity.ok(new UserTokenState(jwt, refreshJwt, expiresIn, expiresInRefresh));
         } else {
             return new ResponseEntity<UserTokenState>(new UserTokenState(), HttpStatus.BAD_REQUEST);
@@ -109,7 +150,8 @@ public class AuthenticationController {
     }
 	@PostMapping("/refresh")
 	public ResponseEntity<UserTokenState> refresh(
-            @RequestBody String refreshToken) {
+            @RequestBody String refreshToken,
+			HttpServletRequest request) {
 		int expiresIn = tokenUtils.getExpiredIn();
 		int expiresInRefresh = tokenUtils.getExpiredInRefreshToken();
 		try{
@@ -123,26 +165,33 @@ public class AuthenticationController {
 				return new ResponseEntity<UserTokenState>(new UserTokenState(),HttpStatus.UNAUTHORIZED);
 			}
 		} catch (ExpiredJwtException ex) {
+			String address = request.getHeader("x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("http-x-forwarded-for");
+				if (address == null || address.length() == 0) {
+					address = request.getHeader("remote-addr");
+					if (address == null || address.length() == 0) {
+						address = request.getRemoteAddr();
+					}
+				}
+			}
+			logger.info("User unsuccessfully logged in from Host:"+ address +", Port:" + request.getRemotePort() + " - expired Access Token");
 			return new ResponseEntity<UserTokenState>(new UserTokenState(),HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 
 	@PostMapping("/registration")
-	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<RegisteredUserDTO> addUser(@RequestBody RegisteredUserDTO registeredUserDTO, HttpServletRequest request, UriComponentsBuilder ucBuilder) {
 
 		EmailBlacklist eb = emailBlacklistRepository.findByEmail(registeredUserDTO.getEmail());
-
 		Calendar now = Calendar.getInstance();
-
 		if(eb != null){
 			if(eb.getBlacklistedUntil().after(now)){
 				throw new IllegalArgumentException("Blacklisted email");
 			}
 		}
-
 		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
-
 		if (existUser != null) {
 			throw new ResourceConflictException(registeredUserDTO.getId(), "Email already in use");
 		}
@@ -156,12 +205,24 @@ public class AuthenticationController {
 
 		userService.createRegisterRequest(registeredUserDTO);
 
+		String address = request.getHeader("x-forwarded-for");
+		if (address == null || address.length() == 0) {
+			address = request.getHeader("http-x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("remote-addr");
+				if (address == null || address.length() == 0) {
+					address = request.getRemoteAddr();
+				}
+			}
+		}
+		logger.info("User successfully registered from Host:"+ address +", Port:" + request.getRemotePort());
+
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@PreAuthorize("hasPermission(#id, 'Administrator', 'create')")
 	@PostMapping("/adminRegistration")
-	public ResponseEntity<RegisteredUserDTO> addAdministrator(@RequestBody RegisteredUserDTO registeredUserDTO, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<RegisteredUserDTO> addAdministrator(@RequestBody RegisteredUserDTO registeredUserDTO, HttpServletRequest request, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByUsername(registeredUserDTO.getEmail());
 
@@ -175,6 +236,18 @@ public class AuthenticationController {
 		userService.registerAdmin(registeredUserDTO);
 		// treba staviti da se uzme id od ovog registrovanog usera i da mu se stavi role_user
 		//System.out.println(registeredUserDTO.getEmail());
+
+		String address = request.getHeader("x-forwarded-for");
+		if (address == null || address.length() == 0) {
+			address = request.getHeader("http-x-forwarded-for");
+			if (address == null || address.length() == 0) {
+				address = request.getHeader("remote-addr");
+				if (address == null || address.length() == 0) {
+					address = request.getRemoteAddr();
+				}
+			}
+		}
+		logger.info("Admin successfully registered from Host:"+ address +", Port:" + request.getRemotePort());
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
