@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.config.PrivateKeyEncryption;
 import com.company.dto.AdminDTO;
 import com.company.dto.PasswordDTO;
 import com.company.dto.RegisterRequestDTO;
@@ -35,10 +36,12 @@ public class AdministratorService {
     private UserRepository userRepository;
     @Autowired
     private EmailBlacklistRepository emailBlacklistRepository;
+    @Autowired
+    private PrivateKeyEncryption privateKeyEncryption;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public int findByUsername(String username) throws UsernameNotFoundException {
-        Administrator administrator = administratorRepository.findByUsername(username);
+        Administrator administrator = administratorRepository.findByUsername(privateKeyEncryption.encryptToString(username));
         if(administrator != null){
             return administrator.getId();
         }
@@ -92,8 +95,6 @@ public class AdministratorService {
        	emailSenderService.sendSimpleEmail(registerRequestDTO.getEmail(),
 				"Verifikacija naloga",
 				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: https://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
-
-
     }
 
 

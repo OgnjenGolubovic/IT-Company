@@ -75,7 +75,26 @@ public class User implements Serializable, UserDetails{
 	public User() {
 		super();
 	}
-	
+
+	public User(User user) {
+		super();
+		this.id = user.getId();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.state = user.getState();
+		this.city = user.getCity();
+		this.street = user.getStreet();
+		this.streetNumber = user.getStreetNumber();
+		this.phoneNumber = user.getPhoneNumber();
+		this.companyRole = user.getCompanyRole();
+		this.secretKey = user.getSecretKey();
+		this.enabled = user.isEnabled();
+		this.tfa = user.isTfa();
+		this.roles = user.getRoles();
+		this.lastPasswordResetDate = user.getLastPasswordResetDate();
+	}
 	
 	public User(Integer id, String username, String password, String name, String surname, String phoneNumber) {
 		super();

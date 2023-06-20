@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,11 +25,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	private TokenUtils tokenUtils;
-
 	private UserDetailsService userDetailsService;
 	
 	protected final Log LOGGER = LogFactory.getLog(getClass());
 
+	@Autowired
+	private PrivateKeyEncryption privateKeyEncryption;
 	public TokenAuthenticationFilter(TokenUtils tokenHelper, UserDetailsService userDetailsService) {
 		this.tokenUtils = tokenHelper;
 		this.userDetailsService = userDetailsService;

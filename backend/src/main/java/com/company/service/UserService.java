@@ -1,10 +1,7 @@
 package com.company.service;
 
-import java.util.Calendar;
-import java.util.List;
-
+import com.company.config.PrivateKeyEncryption;
 import com.company.dto.RegisteredUserDTO;
-//import com.company.mappers.RegisteredUserMapper;
 import com.company.dto.UserDTO;
 import com.company.dto.enums.Status;
 import com.company.model.*;
@@ -13,10 +10,14 @@ import com.company.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.FileReader;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -29,6 +30,9 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
+	private PrivateKeyEncryption privateKeyEncryption;
+
+	@Autowired
 	private HumanResourcesRepository humanResourcesRepository;
 	@Autowired
 	private ProjectMangerRepository projectMangerRepository;
@@ -39,25 +43,36 @@ public class UserService {
 	private RegistrationRequestRepository registrationRequestRepository;
 
 	public User findByUsername(String username) throws UsernameNotFoundException {
-		return userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(privateKeyEncryption.encryptToString(username));
+		if(user != null)decryptUser(user);
+		return user;
+	}
+
+	public String getSecretKey(String username) {
+		User user = userRepository.findByUsername(privateKeyEncryption.encryptToString(username));
+		return privateKeyEncryption.decryptFromString(user.getSecretKey());
 	}
 
 	public User setTFAByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(privateKeyEncryption.encryptToString(username));
 		user.setTfa(true);
 		return userRepository.save(user);
 	}
-	public User setSecretKeyByUsername(String username, String secretKey){
-		User user = userRepository.findByUsername(username);
-		user.setSecretKey(secretKey);
+
+	public User setSecretKeyByUsername(User user, String secretKey){
+		String encryptedSecretKey = privateKeyEncryption.encryptToString(secretKey);
+		user.setSecretKey(encryptedSecretKey);
+		encryptUser(user);
 		return userRepository.save(user);
 	}
 	public User findById(Integer id) throws AccessDeniedException {
-		return userRepository.findById(id).orElseGet(null);
+		User user = userRepository.findById(id).get();
+		decryptUser(user);
+		return user;
 	}
 
 	public List<User> findAll() throws AccessDeniedException {
-		return userRepository.findAll();
+		return decryptUsers(userRepository.findAll());
 	}
 
 	public User registerUser(RegisteredUserDTO userRequest) {
@@ -65,7 +80,9 @@ public class UserService {
 		CompanyRole cr;
 		List<Role> roles;
 
-		if(userRequest.getCompanyRole().equals("humanResourceManager")){
+        encryptRegisterData(userRequest);
+
+        if(userRequest.getCompanyRole().equals("humanResourceManager")){
 			cr = CompanyRole.HR;
 			roles = roleService.findByName("ROLE_HUMAN_RESOURCES");
 			HumanResources hr = new HumanResources(userRequest.getEmail(), userRequest.getPassword(), userRequest.getName(), userRequest.getSurname(),
@@ -95,6 +112,7 @@ public class UserService {
 
 
     public void save(User user) {
+		encryptUser(user);
 		this.userRepository.save(user);
     }
 
@@ -153,6 +171,43 @@ public class UserService {
 		userRepository.save(admin);
 
 	}
-
-
+	private void encryptUser(User user){
+		user.setPhoneNumber(privateKeyEncryption.encryptToString(user.getPhoneNumber()));
+		user.setStreetNumber(privateKeyEncryption.encryptToString(user.getStreetNumber()));
+		user.setStreet(privateKeyEncryption.encryptToString(user.getStreet()));
+		user.setCity(privateKeyEncryption.encryptToString(user.getCity()));
+		user.setState(privateKeyEncryption.encryptToString(user.getState()));
+		user.setName(privateKeyEncryption.encryptToString(user.getName()));
+		user.setSurname(privateKeyEncryption.encryptToString(user.getSurname()));
+		user.setUsername(privateKeyEncryption.encryptToString(user.getUsername()));
+	}
+    private void encryptRegisterData(RegisteredUserDTO dto){
+        dto.setPhone(privateKeyEncryption.encryptToString(dto.getPhone()));
+        dto.setStreetNumber(privateKeyEncryption.encryptToString(dto.getStreetNumber()));
+        dto.setStreet(privateKeyEncryption.encryptToString(dto.getStreet()));
+        dto.setCity(privateKeyEncryption.encryptToString(dto.getCity()));
+        dto.setState(privateKeyEncryption.encryptToString(dto.getState()));
+        dto.setName(privateKeyEncryption.encryptToString(dto.getName()));
+        dto.setSurname(privateKeyEncryption.encryptToString(dto.getSurname()));
+        dto.setEmail(privateKeyEncryption.encryptToString(dto.getEmail()));
+    }
+	public void decryptUser(User user){
+		user.setUsername(privateKeyEncryption.decryptFromString(user.getUsername()));
+		user.setPhoneNumber(privateKeyEncryption.decryptFromString(user.getPhoneNumber()));
+		user.setStreetNumber(privateKeyEncryption.decryptFromString(user.getStreetNumber()));
+		user.setStreet(privateKeyEncryption.decryptFromString(user.getStreet()));
+		user.setCity(privateKeyEncryption.decryptFromString(user.getCity()));
+		user.setState(privateKeyEncryption.decryptFromString(user.getPhoneNumber()));
+		user.setName(privateKeyEncryption.decryptFromString(user.getPhoneNumber()));
+		user.setSurname(privateKeyEncryption.decryptFromString(user.getPhoneNumber()));
+	}
+	private List<User> decryptUsers(List<User> users){
+		List<User> decryptedUsers = new ArrayList<>(users);
+		for(User user: users){
+			User decryptedUser = new User(user);
+			decryptUser(decryptedUser);
+			decryptedUsers.add(decryptedUser);
+		}
+		return decryptedUsers;
+	}
 }

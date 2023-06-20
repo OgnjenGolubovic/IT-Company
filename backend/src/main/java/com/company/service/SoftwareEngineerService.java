@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.config.PrivateKeyEncryption;
 import com.company.dto.SoftwareEngineerDTO;
 import com.company.model.SoftwareEngineer;
 import com.company.model.enums.CompanyRole;
@@ -16,8 +17,10 @@ import java.util.Optional;
 public class SoftwareEngineerService {
     @Autowired
     private SoftwareEngineerRepository softwareEngineerRepository;
+    @Autowired
+    private PrivateKeyEncryption privateKeyEncryption;
     public int findByUsername(String username) throws UsernameNotFoundException {
-        SoftwareEngineer softwareEngineer = softwareEngineerRepository.findByUsername(username);
+        SoftwareEngineer softwareEngineer = softwareEngineerRepository.findByUsername(privateKeyEncryption.encryptToString(username));
         if(softwareEngineer != null){
             return softwareEngineer.getId();
         }
