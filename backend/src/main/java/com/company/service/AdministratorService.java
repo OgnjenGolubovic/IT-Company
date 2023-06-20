@@ -95,8 +95,6 @@ public class AdministratorService {
        	emailSenderService.sendSimpleEmail(registerRequestDTO.getEmail(),
 				"Verifikacija naloga",
 				"Molimo Vas kliknite na link da biste izvršili verifikaciju vašeg naloga: https://localhost:8084/auth/verify-email/" + registerRequestDTO.getEmail());
-
-
     }
 
 

@@ -269,3 +269,186 @@
 18.06.2023. 16:55:23 INFO  [SchemaDropperImpl$DelayedDropActionImpl] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
 18.06.2023. 16:55:23 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown initiated...
 18.06.2023. 16:55:23 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown completed.
+19.06.2023. 12:22:46 INFO  [CompanyApplication  ] Starting CompanyApplication using Java 17.0.7 on DESKTOP-APCT21E with PID 2204 (C:\Users\ognje\OneDrive\Desktop\IT-Company\backend\target\classes started by ognje in C:\Users\ognje\OneDrive\Desktop\IT-Company\backend)
+19.06.2023. 12:22:46 INFO  [CompanyApplication  ] No active profile set, falling back to 1 default profile: "default"
+19.06.2023. 12:22:51 INFO  [RepositoryConfigurationDelegate] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19.06.2023. 12:22:51 INFO  [RepositoryConfigurationDelegate] Finished Spring Data repository scanning in 428 ms. Found 11 JPA repository interfaces.
+19.06.2023. 12:22:56 INFO  [TomcatWebServer     ] Tomcat initialized with port(s): 8084 (https)
+19.06.2023. 12:22:56 INFO  [Http11NioProtocol   ] Initializing ProtocolHandler ["https-jsse-nio-8084"]
+19.06.2023. 12:22:56 INFO  [StandardService     ] Starting service [Tomcat]
+19.06.2023. 12:22:56 INFO  [StandardEngine      ] Starting Servlet engine: [Apache Tomcat/9.0.68]
+19.06.2023. 12:22:57 INFO  [[/]                 ] Initializing Spring embedded WebApplicationContext
+19.06.2023. 12:22:57 INFO  [ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 10350 ms
+19.06.2023. 12:22:58 INFO  [LogHelper           ] HHH000204: Processing PersistenceUnitInfo [name: default]
+19.06.2023. 12:22:59 INFO  [Version             ] HHH000412: Hibernate ORM core version 5.6.12.Final
+19.06.2023. 12:23:00 INFO  [Version             ] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19.06.2023. 12:23:00 INFO  [HikariDataSource    ] HikariPool-1 - Starting...
+19.06.2023. 12:23:01 INFO  [HikariDataSource    ] HikariPool-1 - Start completed.
+19.06.2023. 12:23:01 INFO  [Dialect             ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+19.06.2023. 12:23:04 INFO  [PojoInstantiator    ] HHH000182: No default (no-argument) constructor for class: com.company.model.Address (class must be instantiated by Interceptor)
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "addresses" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "email_blacklist" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "permissions" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "projects" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "registration_requests" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "role_permission" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "roles" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "se_project" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "user_role" does not exist, skipping
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 12:23:05 WARN  [SqlExceptionHelper  ] table "users" does not exist, skipping
+19.06.2023. 12:23:06 INFO  [SchemaCreatorImpl   ] HHH000476: Executing import script 'file:/C:/Users/ognje/OneDrive/Desktop/IT-Company/backend/target/classes/import.sql'
+19.06.2023. 12:23:07 INFO  [JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19.06.2023. 12:23:07 INFO  [LocalContainerEntityManagerFactoryBean] Initialized JPA EntityManagerFactory for persistence unit 'default'
+19.06.2023. 12:23:14 WARN  [JpaBaseConfiguration$JpaWebConfiguration] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@8318808, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@b97f195, org.springframework.security.web.context.SecurityContextPersistenceFilter@5b8ba1d2, org.springframework.security.web.header.HeaderWriterFilter@4f239a76, org.springframework.web.filter.CorsFilter@408bb173, org.springframework.security.web.authentication.logout.LogoutFilter@153cf928, com.company.config.TokenAuthenticationFilter@360d0c7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1eda853f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f0751b0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32f8a37b, org.springframework.security.web.session.SessionManagementFilter@2e845f1c, org.springframework.security.web.access.ExceptionTranslationFilter@51e14cb6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7e4a6afd]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/auth/registration', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/auth/registration', POST]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/auth/login', POST]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/webjars/**', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/*.html', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='favicon.ico', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.html', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.css', GET]
+19.06.2023. 12:23:22 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 12:23:22 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.js', GET]
+19.06.2023. 12:23:24 INFO  [Http11NioProtocol   ] Starting ProtocolHandler ["https-jsse-nio-8084"]
+19.06.2023. 12:23:28 INFO  [TomcatWebServer     ] Tomcat started on port(s): 8084 (https) with context path ''
+19.06.2023. 12:23:28 INFO  [CompanyApplication  ] Started CompanyApplication in 44.36 seconds (JVM running for 49.831)
+19.06.2023. 12:25:05 INFO  [[/]                 ] Initializing Spring DispatcherServlet 'dispatcherServlet'
+19.06.2023. 12:25:05 INFO  [DispatcherServlet   ] Initializing Servlet 'dispatcherServlet'
+19.06.2023. 12:25:05 INFO  [DispatcherServlet   ] Completed initialization in 77 ms
+19.06.2023. 12:25:09 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:59217
+19.06.2023. 12:25:15 INFO  [AuthenticationController] Successfully generated User qrCode from Host:0:0:0:0:0:0:0:1, Port:59222
+19.06.2023. 12:28:17 WARN  [AuthenticationController] User unsuccessfully tried to login in from Host:0:0:0:0:0:0:0:1, Port:59250 - Bad Credentials
+19.06.2023. 12:28:33 WARN  [AuthenticationController] User unsuccessfully tried to login in from Host:0:0:0:0:0:0:0:1, Port:59265 - Bad Credentials
+19.06.2023. 12:28:40 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:59277
+19.06.2023. 12:28:53 INFO  [AuthenticationController] Successfully generated User qrCode from Host:0:0:0:0:0:0:0:1, Port:59290
+19.06.2023. 12:29:52 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:59298
+19.06.2023. 12:30:00 INFO  [AuthenticationController] Successfully generated User qrCode from Host:0:0:0:0:0:0:0:1, Port:59299
+19.06.2023. 12:30:23 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:59316
+19.06.2023. 12:35:51 INFO  [LocalContainerEntityManagerFactoryBean] Closing JPA EntityManagerFactory for persistence unit 'default'
+19.06.2023. 12:35:51 INFO  [SchemaDropperImpl$DelayedDropActionImpl] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+19.06.2023. 12:35:52 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown initiated...
+19.06.2023. 12:35:52 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown completed.
+19.06.2023. 13:35:23 INFO  [CompanyApplication  ] Starting CompanyApplication using Java 17.0.7 on DESKTOP-APCT21E with PID 5660 (C:\Users\ognje\OneDrive\Desktop\IT-Company\backend\target\classes started by ognje in C:\Users\ognje\OneDrive\Desktop\IT-Company\backend)
+19.06.2023. 13:35:23 INFO  [CompanyApplication  ] No active profile set, falling back to 1 default profile: "default"
+19.06.2023. 13:35:27 INFO  [RepositoryConfigurationDelegate] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19.06.2023. 13:35:27 INFO  [RepositoryConfigurationDelegate] Finished Spring Data repository scanning in 406 ms. Found 11 JPA repository interfaces.
+19.06.2023. 13:35:30 INFO  [TomcatWebServer     ] Tomcat initialized with port(s): 8084 (https)
+19.06.2023. 13:35:30 INFO  [Http11NioProtocol   ] Initializing ProtocolHandler ["https-jsse-nio-8084"]
+19.06.2023. 13:35:30 INFO  [StandardService     ] Starting service [Tomcat]
+19.06.2023. 13:35:30 INFO  [StandardEngine      ] Starting Servlet engine: [Apache Tomcat/9.0.68]
+19.06.2023. 13:35:30 INFO  [[/]                 ] Initializing Spring embedded WebApplicationContext
+19.06.2023. 13:35:30 INFO  [ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 7218 ms
+19.06.2023. 13:35:31 INFO  [LogHelper           ] HHH000204: Processing PersistenceUnitInfo [name: default]
+19.06.2023. 13:35:31 INFO  [Version             ] HHH000412: Hibernate ORM core version 5.6.12.Final
+19.06.2023. 13:35:32 INFO  [Version             ] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19.06.2023. 13:35:32 INFO  [HikariDataSource    ] HikariPool-1 - Starting...
+19.06.2023. 13:35:33 INFO  [HikariDataSource    ] HikariPool-1 - Start completed.
+19.06.2023. 13:35:33 INFO  [Dialect             ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+19.06.2023. 13:35:36 INFO  [PojoInstantiator    ] HHH000182: No default (no-argument) constructor for class: com.company.model.Address (class must be instantiated by Interceptor)
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "role_permission" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "se_project" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] relation "user_role" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "addresses" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "email_blacklist" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "permissions" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "projects" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "registration_requests" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "role_permission" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "roles" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "se_project" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "user_role" does not exist, skipping
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] SQL Warning Code: 0, SQLState: 00000
+19.06.2023. 13:35:37 WARN  [SqlExceptionHelper  ] table "users" does not exist, skipping
+19.06.2023. 13:35:37 INFO  [SchemaCreatorImpl   ] HHH000476: Executing import script 'file:/C:/Users/ognje/OneDrive/Desktop/IT-Company/backend/target/classes/import.sql'
+19.06.2023. 13:35:38 INFO  [JtaPlatformInitiator] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19.06.2023. 13:35:38 INFO  [LocalContainerEntityManagerFactoryBean] Initialized JPA EntityManagerFactory for persistence unit 'default'
+19.06.2023. 13:35:43 WARN  [JpaBaseConfiguration$JpaWebConfiguration] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7ab8c972, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@76cad511, org.springframework.security.web.context.SecurityContextPersistenceFilter@5e781b4f, org.springframework.security.web.header.HeaderWriterFilter@518ed9b4, org.springframework.web.filter.CorsFilter@1ff52a71, org.springframework.security.web.authentication.logout.LogoutFilter@27ada0e8, com.company.config.TokenAuthenticationFilter@3338d706, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7305191e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@159314ca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f776b4a, org.springframework.security.web.session.SessionManagementFilter@77e64a46, org.springframework.security.web.access.ExceptionTranslationFilter@40612056, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@510e0dd2]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/auth/registration', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/auth/registration', POST]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/auth/login', POST]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/webjars/**', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/*.html', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='favicon.ico', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.html', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.css', GET]
+19.06.2023. 13:35:46 WARN  [WebSecurity         ] You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19.06.2023. 13:35:46 INFO  [DefaultSecurityFilterChain] Will not secure Ant [pattern='/**/*.js', GET]
+19.06.2023. 13:35:47 INFO  [Http11NioProtocol   ] Starting ProtocolHandler ["https-jsse-nio-8084"]
+19.06.2023. 13:35:49 INFO  [TomcatWebServer     ] Tomcat started on port(s): 8084 (https) with context path ''
+19.06.2023. 13:35:49 INFO  [CompanyApplication  ] Started CompanyApplication in 28.755 seconds (JVM running for 33.011)
+19.06.2023. 13:43:47 INFO  [[/]                 ] Initializing Spring DispatcherServlet 'dispatcherServlet'
+19.06.2023. 13:43:47 INFO  [DispatcherServlet   ] Initializing Servlet 'dispatcherServlet'
+19.06.2023. 13:43:47 INFO  [DispatcherServlet   ] Completed initialization in 198 ms
+19.06.2023. 13:43:53 INFO  [AuthenticationController] User successfully registered from Host:0:0:0:0:0:0:0:1, Port:52284
+19.06.2023. 13:46:46 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:55036
+19.06.2023. 13:46:52 INFO  [AuthenticationController] Successfully generated User qrCode from Host:0:0:0:0:0:0:0:1, Port:51815
+19.06.2023. 13:47:49 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:57676
+19.06.2023. 13:48:04 INFO  [AuthenticationController] User successfully logged in with qrcode from Host:0:0:0:0:0:0:0:1, Port:56844
+19.06.2023. 13:48:18 INFO  [AuthenticationController] User successfully logged in from Host:0:0:0:0:0:0:0:1, Port:59216
+19.06.2023. 13:49:25 INFO  [LocalContainerEntityManagerFactoryBean] Closing JPA EntityManagerFactory for persistence unit 'default'
+19.06.2023. 13:49:25 INFO  [SchemaDropperImpl$DelayedDropActionImpl] HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+19.06.2023. 13:49:25 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown initiated...
+19.06.2023. 13:49:26 INFO  [HikariDataSource    ] HikariPool-1 - Shutdown completed.
